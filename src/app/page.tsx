@@ -1,9 +1,7 @@
-'use client';
 
 const Page = () => {
   return (
-    <div className="">
-      DevJourney.
+    <div>
     </div>
   );
 };

@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 
 const Header = () => {
   return (
-    <div className="  border-b">
-      <div className="container mx-auto">
+    <header className="border-b">
+      <div className="max-w-screen-xl mx-auto">
         <div className="flex items-center justify-between py-4">
           <h1 className="text-xl relative element cursor-pointer group">
             Dev-Journey.
@@ -45,7 +45,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

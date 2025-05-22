@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
+import Sidebar from "@/components/sidebar/Sidebar";
+import Title from "@/components/title/Title";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,9 +24,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        {/* Main */}
         <div className="flex flex-col min-h-screen">
           <Header />
-          <div className="flex-grow">{children}</div>
+          <div className="mx-auto w-full max-w-screen-xl px-4 md:px-8 py-4 sm:py-6 md:py-8 flex-grow ">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 font-inter">
+              <aside className="w-full lg:col-span-4">
+                <Sidebar />
+              </aside>
+              <main className="w-full mt-8 lg:mt-0 lg:col-span-8 ">
+                <Title />
+                {children}
+              </main>
+            </div>
+          </div>
           <Footer />
         </div>
       </body>
