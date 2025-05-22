@@ -31,7 +31,7 @@ const Title = () => {
     if (current) setActive(current.title);
   }, [pathname]);
   return (
-    <nav className="flex flex-col gap-4">
+    <nav className="flex flex-col gap-4 mt-16">
       <div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

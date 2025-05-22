@@ -9,26 +9,26 @@ const BlogPage = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.8 }}
-      className="grid grid-cols-1 gap-6 mt-4"
+      className="grid grid-cols-1 gap-6 mt-8"
     >
-      <div>
+      <div className="flex flex-col gap-6">
         {data.map((item) => (
           <div
             key={item.id}
-            className="group relative bg-gradient-to-br from-white to-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-transparent shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 flex items-center gap-4 p-2 "
+            className="group relative bg-gradient-to-br from-white to-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-transparent shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 flex items-center gap-4 p-2 md:flex-row flex-col"
           >
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
             {/* Image container with overlay */}
-            <div className="aspect-[14/8] relative overflow-hidden">
+            <div className="md:aspect-[14/8] aspect-auto relative overflow-hidden rounded-xl group max-md:h-[400px] max-md:w-full">
               <Image
                 alt={item.title}
                 src={item.image}
                 title={item.title}
-                width={250}
-                height={350}
                 loading="lazy"
+                width={500}
+                height={200}
                 className="object-cover w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-110 rounded-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

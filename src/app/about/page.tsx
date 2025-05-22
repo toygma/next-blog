@@ -1,8 +1,11 @@
+import AboutPage from "@/components/pages/about/AboutPage"
 
-const AboutPage = () => {
+const Page = () => {
   return (
-    <div>AboutPage</div>
+    <>
+      <AboutPage/>
+    </>
   )
 }
 
-export default AboutPage
+export default Page

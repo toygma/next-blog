@@ -1,9 +1,33 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 const Header = () => {
+  const [scrollDir, setScrollDir] = useState<"up" | "down">("up");
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current) {
+        setScrollDir("down");
+      } else {
+        setScrollDir("up");
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <header className="border-b">
+    <header
+      className={`border-b  fixed top-0 w-full z-50 backdrop-blur-md transition-transform duration-300 ${
+        scrollDir === "down" ? "-translate-y-full " : "translate-y-0"
+      }`}
+    >
       <div className="max-w-screen-xl mx-auto">
         <div className="flex items-center justify-between py-4">
           <h1 className="text-xl relative element cursor-pointer group">
