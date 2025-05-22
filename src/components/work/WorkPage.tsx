@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const data = [
+export const data = [
   {
     id: 1,
     categories: ["React", "Typescript", "Next.js"],
