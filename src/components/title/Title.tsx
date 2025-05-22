@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 const data = [
   {
     id: 1,
@@ -22,7 +23,13 @@ const data = [
 ];
 
 const Title = () => {
-  const [active, setActive] = useState("Work");
+  const pathname = usePathname();
+  const [active, setActive] = useState("");
+
+  useEffect(() => {
+    const current = data.find((item) => item.href === pathname);
+    if (current) setActive(current.title);
+  }, [pathname]);
   return (
     <nav className="flex flex-col gap-4">
       <div>

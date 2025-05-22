@@ -1,4 +1,4 @@
-import WorkPage from "@/components/work/WorkPage";
+import WorkPage from "@/components/pages/work/WorkPage";
 
 const Page = () => {
   return (
