@@ -2,22 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
-
+import { motion } from "framer-motion";
 const data = [
   {
     id: 1,
     title: "Work",
-    href:"/"
+    href: "/",
   },
   {
     id: 2,
     title: "Blog",
-    href:"/blog"
+    href: "/blog",
   },
   {
     id: 3,
     title: "About",
-    href:"/about"
+    href: "/about",
   },
 ];
 
@@ -26,14 +26,31 @@ const Title = () => {
   return (
     <nav className="flex flex-col gap-4">
       <div>
-        <h1 className="font-bold md:text-5xl text-4xl">Full Stack Developer</h1>
-        <p className="italic">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="font-bold md:text-5xl text-4xl"
+        >
+          Full Stack Developer
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="italic"
+        >
           💭 &#39;I&apos;m a dreamer. I have to dream and reach for the stars,
           and if I miss a star then I grab a handful of clouds.&#34; — Mike
           Tyson
-        </p>
+        </motion.p>
       </div>
-      <ul className="flex gap-8 border-b overflow-x-auto scrollbar-hide">
+      <motion.ul
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="flex gap-8 border-b overflow-x-auto scrollbar-hide"
+      >
         {data.map((item) => (
           <li
             key={item.id}
@@ -47,7 +64,7 @@ const Title = () => {
             <Link href={item.href}> {item.title}</Link>
           </li>
         ))}
-      </ul>
+      </motion.ul>
     </nav>
   );
 };
