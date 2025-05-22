@@ -1,9 +1,11 @@
-import React from 'react'
+'use client';
 
 const Page = () => {
   return (
-    <div>Page</div>
-  )
-}
+    <div className="">
+      DevJourney.
+    </div>
+  );
+};
 
-export default Page
+export default Page;
