@@ -2,7 +2,6 @@
 
 import { GithubSvg, LinkedinSvg, YoutubeSvg } from "@/lib/svg";
 import Image from "next/image";
-import Link from "next/link";
 
 const AboutPage = () => {
   return (
@@ -58,22 +57,22 @@ const AboutPage = () => {
           <div className="mt-20 flex flex-col gap-3 md:items-start items-center">
             <p className="flex items-center gap-2 text-[16px]  text-[#52525b] hover:bg-background  cursor-pointer p-2 rounded-md  group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500">
               <GithubSvg />
-              <Link href={"https://github.com/utkbkts"} target="_blank" className="group-hover:text-transparent">
+              <a href={"https://github.com/utkbkts"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent">
                 {" "}
                 Follow me on GitHub
-              </Link>
+              </a>
             </p>
             <p className="flex items-center gap-2 text-[16px]  text-[#52525b] hover:bg-background  cursor-pointer p-2 rounded-md  group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500">
               <LinkedinSvg />
-              <Link href={"https://www.linkedin.com/in/utku-bektasoglu/"} target="_blank" className="group-hover:text-transparent">
+              <a href={"https://www.linkedin.com/in/utku-bektasoglu/"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent">
                 Follow me on Linkedin
-              </Link>
+              </a>
             </p>
             <p className="flex items-center gap-2 text-[16px]  text-[#52525b] hover:bg-background  cursor-pointer p-2 rounded-md  group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500">
               <YoutubeSvg />
-              <Link href={"https://www.youtube.com/@DevJourneyYT"} target="_blank" className="group-hover:text-transparent">
+              <a href={"https://www.youtube.com/@DevJourneyYT"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent">
                 Follow me on Youtube
-              </Link>
+              </a>
             </p>
           </div>
         </div>
