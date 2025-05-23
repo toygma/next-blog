@@ -45,7 +45,7 @@ const Sidebar = () => {
           <h1 className="text-[10px] text-[#111827]">CONTACT</h1>
           <div className="flex items-center gap-2">
             <EmailSvg />
-            <a href={"mailto:utkutoygunbektasoglu@gmail.com"} rel="noopener noreferrer" className="text-[14px] text-[#374151] hover:underline">
+            <a href={"mailto:utkutoygunbektasoglu@gmail.com"}  className="text-[14px] text-[#374151] hover:underline">
               utkutoygunbektasoglu@gmail.com
             </a>
           </div>
