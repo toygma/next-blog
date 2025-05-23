@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
+import Modal from "../modal/Modal";
 
 const Header = () => {
   const [scrollDir, setScrollDir] = useState<"up" | "down">("up");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -39,8 +41,9 @@ const Header = () => {
               My Blog
             </Button>
             <Button
+              onClick={() => setIsModalOpen(true)}
               variant={"default"}
-              className="cursor-pointer hover:bg-gradient-to-br  hover:from-[#134B42] hover:to-[#CA763A]"
+              className="cursor-pointer hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500"
             >
               <svg
                 width="16"
@@ -66,6 +69,7 @@ const Header = () => {
               </svg>
               Get In Touch
             </Button>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           </div>
         </div>
       </div>
