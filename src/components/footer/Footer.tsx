@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <div className="border-t w-full">
       <div className="max-w-screen-xl mx-auto ">
-        <div className="px-4 py-8 flex justify-between items-center md:flex-row flex-col">
+        <div className="px-4 py-8 flex justify-between items-center md:flex-row flex-col md:gap-0 gap-4">
           <div className="flex items-center gap-2 text-gray-400 flex-1">
              <Link href={"https://www.youtube.com/@DevJourneyYT"} target="_blank" className="cursor-pointer">
               <YoutubeSvg />

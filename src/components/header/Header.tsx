@@ -28,10 +28,10 @@ const Header = () => {
   return (
     <header
       className={`border-b  fixed top-0 w-full z-50 backdrop-blur-md transition-transform duration-300 ${
-        scrollDir === "down" ? "-translate-y-full " : "translate-y-0"
+        scrollDir === "down" ? "md:-translate-y-full " : "md:translate-y-0"
       }`}
     >
-      <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-xl mx-auto md:px-0 px-4">
         <div className="flex items-center justify-between py-4">
           <h1 className="md:text-xl text-[16px] relative element cursor-pointer group">
             Dev-Journey.
