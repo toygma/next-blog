@@ -33,15 +33,19 @@ const Header = () => {
     >
       <div className="max-w-screen-xl mx-auto">
         <div className="flex items-center justify-between py-4">
-          <h1 className="text-xl relative element cursor-pointer group">
+          <h1 className="md:text-xl text-[16px] relative element cursor-pointer group">
             Dev-Journey.
             <span className="bg-gray-600 absolute bottom-0 left-0 h-[2px] w-[70px] group-hover:w-full transition-all duration-300"></span>
           </h1>
           <div className="flex items-center gap-4">
-            <Button variant={"outline"} className="cursor-pointer">
-              My Blog
-            </Button>
-            <ButtonGetInTouch setIsModalOpen={setIsModalOpen} />
+            <div className="hidden md:flex">
+              <Button variant={"outline"} className="cursor-pointer">
+                My Blog
+              </Button>
+            </div>
+            <div>
+              <ButtonGetInTouch setIsModalOpen={setIsModalOpen} />
+            </div>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           </div>
         </div>
