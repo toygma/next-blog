@@ -130,3 +130,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* clerk */
+.cl-avatarBox.cl-userButtonAvatarBox.cl-internal-1j7ahlv{
+  width:40px;
+  height:40px;
+}

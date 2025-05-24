@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Modal from "../modal/Modal";
 import ButtonGetInTouch from "../button/Button";
 import ModalUserButton from "./partials/ModalUserButton";
+import DarkModeButton from "./partials/DarkModeButton";
 
 const Header = () => {
   const [scrollDir, setScrollDir] = useState<"up" | "down">("up");
@@ -38,6 +39,7 @@ const Header = () => {
             <span className="bg-gray-600 absolute bottom-0 left-0 h-[2px] w-[70px] group-hover:w-full transition-all duration-300"></span>
           </h1>
           <div className="flex items-center gap-4">
+            <DarkModeButton />
             <ModalUserButton />
             <div>
               <ButtonGetInTouch setIsModalOpen={setIsModalOpen} />

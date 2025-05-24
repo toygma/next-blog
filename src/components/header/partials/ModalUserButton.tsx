@@ -8,17 +8,12 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-
 const ModalUserButton = () => {
   return (
     <div className="flex items-center gap-2 md:gap-3">
       <SignedIn>
         <UserButton
-          appearance={{
-            elements: {
-              userButtonAvatarBox: "h-8 w-8 md:h-9 md:w-9",
-            },
-          }}
+  
         />
       </SignedIn>
       <SignedOut>
