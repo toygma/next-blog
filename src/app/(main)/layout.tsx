@@ -5,7 +5,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Title from "@/components/title/Title";
-
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
- 
+    <ClerkProvider>
       <html lang="en">
         <body className={`${inter.variable} antialiased`}>
           {/* Main */}
@@ -44,5 +44,6 @@ export default function RootLayout({
           </div>
         </body>
       </html>
+    </ClerkProvider>
   );
 }
