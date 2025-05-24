@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../ui/button";
 import Modal from "../modal/Modal";
 import ButtonGetInTouch from "../button/Button";
+import ModalUserButton from "./partials/ModalUserButton";
 
 const Header = () => {
   const [scrollDir, setScrollDir] = useState<"up" | "down">("up");
@@ -33,16 +33,12 @@ const Header = () => {
     >
       <div className="max-w-screen-xl mx-auto md:px-0 px-4">
         <div className="flex items-center justify-between py-4">
-          <h1 className="md:text-xl text-[16px] relative element cursor-pointer group">
+          <h1 className="md:text-xl sm:text-[16px] text-[12px] relative element cursor-pointer group">
             Dev-Journey.
             <span className="bg-gray-600 absolute bottom-0 left-0 h-[2px] w-[70px] group-hover:w-full transition-all duration-300"></span>
           </h1>
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex">
-              <Button variant={"outline"} className="cursor-pointer">
-                My Blog
-              </Button>
-            </div>
+            <ModalUserButton />
             <div>
               <ButtonGetInTouch setIsModalOpen={setIsModalOpen} />
             </div>
