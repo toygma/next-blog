@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
 const data = [
   {
     id: 1,

@@ -1,7 +1,7 @@
 "use client";
 
-import { GithubSvg, LinkedinSvg, YoutubeSvg } from "@/lib/svg";
 import Image from "next/image";
+import { GithubSvg, LinkedinSvg, YoutubeSvg } from "@/lib/svg";
 
 const AboutPage = () => {
   return (

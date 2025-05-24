@@ -1,6 +1,6 @@
 "use client";
-import { GithubSvg, LinkedinSvg, YoutubeSvg } from "@/lib/svg";
 import React from "react";
+import { GithubSvg, LinkedinSvg, YoutubeSvg } from "@/lib/svg";
 
 const Footer = () => {
   return (
