@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import { NextRequest } from "next/server";
 
@@ -61,6 +61,14 @@ export async function POST(req: NextRequest) {
           image_url,
         },
       });
+      const user = await clerkClient();
+      await user.users.updateUserMetadata(id, {
+        publicMetadata: {
+          clerkUserId: id,
+          isAdmin: false,
+        },
+      });
+
       return new Response(JSON.stringify(newEvent), {
         status: 201,
       });
