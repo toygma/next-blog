@@ -44,7 +44,7 @@ const Header = () => {
           <div className="flex items-center sm:gap-4 gap-2">
             <DarkModeButton />
             <ModalUserButton />
-            <div>
+            <div className="md:inline hidden">
               <ButtonGetInTouch setIsModalOpen={setIsModalOpen} />
             </div>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
