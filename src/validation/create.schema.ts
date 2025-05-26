@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 export const createPostSchema = z.object({
   postType: z.string().min(1, { message: "Post type is required." }),
   title: z
@@ -11,7 +10,7 @@ export const createPostSchema = z.object({
     .string()
     .min(10, { message: "Content must be at least 10 characters" }),
 
-  featuredImage: z.string().url({ message: "Enter a valid image URL" }),
+  featuredImage: z.union([z.instanceof(File), z.string()]).optional(),
 
   categories: z.array(
     z.object({

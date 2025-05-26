@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { CreatePostInput, createPostSchema } from "@/validation/create.schema";
@@ -21,15 +21,50 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { createPosts } from "@/lib/actions/create.post";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+
 const CreatePage = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState(false);
   const form = useForm<CreatePostInput>({
     resolver: zodResolver(createPostSchema),
     mode: "onChange",
   });
   const onSubmit = async (data: CreatePostInput) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
-  };
+    const formData = new FormData();
+    setLoading(true);
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("postType", data.postType);
+    formData.append("categories", JSON.stringify(data.categories));
 
+    if (data.featuredImage instanceof File) {
+      formData.append("featuredImage", data.featuredImage);
+    }
+
+    try {
+      const result = await createPosts(formData);
+
+      if (Object.keys(result.errors).length > 0) {
+        Object.entries(result.errors).forEach(([field, errors]) => {
+          errors.forEach((error) => toast.error(`${field}: ${error}`));
+        });
+        return;
+      } else {
+        toast.success("Created Post Successfully");
+        form.reset();
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+        form.setValue("title", "");
+        form.setValue("postType", "");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="max-w-4xl mx-auto p-6">
       <Card>
@@ -72,20 +107,28 @@ const CreatePage = () => {
               <div className="space-y-2">
                 <FormField
                   control={form.control}
-                  name={"featuredImage"}
-                  render={({ field }) => (
+                  name="featuredImage"
+                  render={({ field: { onChange, value, ref, ...field } }) => (
                     <FormItem>
                       <FormLabel>Featured Images</FormLabel>
                       <FormControl>
                         <Input
+                          onClick={() => {
+                            if (fileInputRef.current) {
+                              fileInputRef.current.value = "";
+                            }
+                          }}
+                          ref={fileInputRef}
                           type="file"
                           accept="image/*"
                           {...field}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            onChange(file);
+                          }}
                         />
                       </FormControl>
-                      <FormMessage className="font-medium text-sm text-red-500">
-                        {form.formState.errors?.content?.message}
-                      </FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -119,7 +162,9 @@ const CreatePage = () => {
                 <Button type="button" variant="outline">
                   Cancel
                 </Button>
-                <Button type="submit">Create Post</Button>
+                <Button disabled={loading} type="submit">
+                  Create Post
+                </Button>
               </div>
             </form>
           </Form>
