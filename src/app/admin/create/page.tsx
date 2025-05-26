@@ -11,7 +11,7 @@ const Page = () => {
   }
 
   if(!isSignedIn || !user || user.publicMetadata.isAdmin === false){
-    return <Loading/>
+    return <Loading fullScreen/>
   }
   return (
     <div className='mt-32 max-w-screen-xl mx-auto'>

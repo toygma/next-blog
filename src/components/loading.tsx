@@ -1,15 +1,25 @@
-const Loading = () => {
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-white dark:bg-black">
-      <div className="relative w-20 h-20">
-        <div className="absolute inset-0 rounded-full border-4 border-t-transparent dark:border-t-black animate-spin border-black dark:border-white" />
+import { cn } from "@/lib/utils";
+import { LoaderCircle } from "lucide-react";
+interface Props {
+  fullScreen?: boolean;
+  size?: number;
+  className?: string;
+}
 
-        <div className="absolute inset-2 rounded-full bg-black dark:bg-white flex items-center justify-center">
-          <span className="text-white dark:text-black font-bold text-sm">DEV-J</span>
-        </div>
-      </div>
-    </div>
+const Loading = ({ className, fullScreen = false, size = 5 }: Props) => {
+  const spinner = (
+    <LoaderCircle className={cn("animate-spin", className)} size={size} />
   );
+
+  if (fullScreen) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        {spinner}
+      </div>
+    );
+  }
+
+  return spinner;
 };
 
 export default Loading;

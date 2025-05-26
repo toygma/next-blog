@@ -162,7 +162,7 @@ const CreatePage = () => {
                 <Button type="button" variant="outline">
                   Cancel
                 </Button>
-                <Button disabled={loading} type="submit">
+                <Button disabled={loading} loading={loading} type="submit">
                   Create Post
                 </Button>
               </div>
