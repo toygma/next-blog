@@ -1,11 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { CreatePostInput, createPostSchema } from "@/validation/create.schema";
@@ -15,14 +14,18 @@ import FormInput from "@/components/input/FormInput";
 import FormCategory from "@/components/input/FormCategory";
 import FormRadio from "@/components/input/FormRadio";
 import { OPTIONS } from "./partials/data";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 const CreatePage = () => {
-  const [formData, setFormData] = useState({});
-
   const form = useForm<CreatePostInput>({
     resolver: zodResolver(createPostSchema),
     mode: "onChange",
   });
-  console.log(form.getValues("postType"))
   const onSubmit = async (data: CreatePostInput) => {
     console.log("🚀 ~ onSubmit ~ data:", data);
   };
@@ -67,35 +70,49 @@ const CreatePage = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="featuredImage">Featured Image</Label>
-                <Input
-                  id="featuredImage"
-                  name="featuredImage"
-                  type="file"
-                  accept="image/*"
+                <FormField
+                  control={form.control}
+                  name={"featuredImage"}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Featured Images</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="font-medium text-sm text-red-500">
+                        {form.formState.errors?.content?.message}
+                      </FormMessage>
+                    </FormItem>
+                  )}
                 />
-                {form.formState.errors.featuredImage && (
-                  <span className="font-medium text-sm text-red-500">
-                    {form.formState.errors.featuredImage?.message}
-                  </span>
-                )}
               </div>
 
               <div className="space-y-2">
-                <Label>Content</Label>
-                <ReactQuill
-                  theme="snow"
-                  placeholder="Write something..."
-                  className="h-72 mb-12"
-                  onChange={(value) => {
-                    setFormData({ ...formData, content: value });
-                  }}
+                <FormField
+                  control={form.control}
+                  name={"content"}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Content</FormLabel>
+                      <FormControl>
+                        <ReactQuill
+                          theme="snow"
+                          placeholder="Write something..."
+                          className="h-72 mb-12"
+                          value={field.value || ""}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage className="font-medium text-sm text-red-500">
+                        {form.formState.errors?.content?.message}
+                      </FormMessage>
+                    </FormItem>
+                  )}
                 />
-                {form.formState.errors.content && (
-                  <span className="font-medium text-sm text-red-500">
-                    {form.formState.errors.content?.message}
-                  </span>
-                )}
               </div>
 
               <div className="flex justify-end gap-4">

@@ -23,6 +23,7 @@ model User {
 
 model Post {
   id            String     @id @default(cuid())
+  postType      String
   title         String
   content       String
   featuredImage String

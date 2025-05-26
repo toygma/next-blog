@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const createPostSchema = z.object({
-  postType: z.string().min(1,{message:"Post type is required."}),
+  postType: z.string().min(1, { message: "Post type is required." }),
   title: z
     .string()
     .min(3, { message: "Title must be at least 3 characters" })
