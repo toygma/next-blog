@@ -6,13 +6,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { PostType } from "@/types/post.type";
 
-
 interface WorkPageProps {
   posts?: PostType[] | undefined;
-};
+}
 const WorkPage = ({ posts }: WorkPageProps) => {
-  console.log("🚀 ~ WorkPage ~ post:", posts);
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -39,8 +37,12 @@ const WorkPage = ({ posts }: WorkPageProps) => {
 
           {/* Image container with overlay */}
           <div className="aspect-[16/9] relative overflow-hidden">
-          <div className="absolute top-0 right-0 py-2 px-4 text-purple-800 bg-purple-100 
-                dark:text-purple-200 dark:bg-purple-800/30 z-50">{item.postType}</div>
+            <div
+              className="absolute top-0 right-0 py-2 px-4 text-purple-800 bg-purple-100 
+                dark:text-purple-200 dark:bg-purple-800/30 z-50"
+            >
+              {item.postType}
+            </div>
             <Image
               alt={item.title}
               src={item.featuredImage}
