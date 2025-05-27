@@ -44,7 +44,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
                 loading="lazy"
                 width={500}
                 height={200}
-                className="object-cover w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-110 rounded-xl"
+                className="object-cover  w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-110 rounded-xl"
               />
               <div
                 className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent 
@@ -53,7 +53,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
             </div>
 
             {/* Content */}
-            <div className="relative">
+            <div className="relative w-full">
               {/* Categories */}
               <div className="flex flex-wrap gap-2 mb-3">
                 {item.categories.map((category, index) => (

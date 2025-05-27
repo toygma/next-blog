@@ -1,18 +1,21 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import Loading from "@/components/loading";
-import BlogPage from "@/components/pages/blog/BlogPage";
 import { PaginationWithLinks } from "@/components/ui/pagination-with";
 import { getAllPostsBlogs } from "@/lib/actions/get.posts";
+import dynamic from "next/dynamic";
 
-interface PageProps {
-  searchParams: {
-    page?: string;
-    pageSize?: string;
-  };
+const BlogPage = dynamic(() => import("@/components/pages/blog/BlogPage"), {
+  loading: () => <Loading fullScreen />,
+});
+
+export const metadata: Metadata = {
+  title: "Dev-Journey Blogs",
 }
 
-const Page = async ({ searchParams }: PageProps) => {
-  const currentPage = parseInt((searchParams.page as string) || "1");
+
+const Page = async ({ searchParams }: any) => {
+ const currentPage = parseInt((searchParams.page as string) || "1");
   const postsPerPage = parseInt((searchParams.pageSize as string) || "4");
   const { data, totalCount } = await getAllPostsBlogs(
     currentPage,
