@@ -6,16 +6,29 @@ import {
   SignInButton,
   SignUpButton,
   UserButton,
+  useUser,
 } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 const ModalUserButton = () => {
+  const { user } = useUser();
+
+  
+
+  const isAdmin = user?.publicMetadata?.isAdmin === true;
+
   return (
     <div className="flex items-center gap-2 md:gap-3">
       <SignedIn>
-        <UserButton
-  
-        />
+        <UserButton />
       </SignedIn>
+      {isAdmin && (
+        <Link href={"/admin/create"}>
+          <Button className="block w-full text-left px-3 py-2 ">
+            Admin Panel
+          </Button>
+        </Link>
+      )}
       <SignedOut>
         <Button
           variant="outline"
