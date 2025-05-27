@@ -1,18 +1,12 @@
-"use client";
-import dynamic from "next/dynamic";
 import Loading from "@/components/loading";
-const CreatePage = dynamic(
-  () => import("@/components/pages/admin/create/CreatePage"),
-  {
-    ssr: false,
-    loading: () => <Loading fullScreen />,
-  }
-);
+import CreatePage from "@/components/pages/admin/create/CreatePage";
+import { Suspense } from "react";
+
 const Page = () => {
   return (
-    <div className="mt-32 max-w-screen-xl mx-auto">
+    <Suspense fallback={<Loading fullScreen />}>
       <CreatePage />
-    </div>
+    </Suspense>
   );
 };
 

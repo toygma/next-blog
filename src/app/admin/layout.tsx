@@ -24,9 +24,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
     redirect("/");
   }
   return (
-    <>
-      <main>{children}</main>
-    </>
+    <div  className="min-h-screen flex flex-col mt-32">
+      <main className="flex-grow">{children}</main>
+    </div>
   );
 };
 export default Layout;

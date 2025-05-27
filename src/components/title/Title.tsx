@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const data = [
   {
     id: 1,
-    title: "Work",
+    title: "Projects",
     href: "/",
   },
   {

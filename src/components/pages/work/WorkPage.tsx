@@ -39,6 +39,8 @@ const WorkPage = ({ posts }: WorkPageProps) => {
 
           {/* Image container with overlay */}
           <div className="aspect-[16/9] relative overflow-hidden">
+          <div className="absolute top-0 right-0 py-2 px-4 text-purple-800 bg-purple-100 
+                dark:text-purple-200 dark:bg-purple-800/30 z-50">{item.postType}</div>
             <Image
               alt={item.title}
               src={item.featuredImage}
