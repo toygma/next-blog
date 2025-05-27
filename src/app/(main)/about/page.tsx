@@ -1,11 +1,19 @@
-import AboutPage from "@/components/pages/about/AboutPage"
+"use client";
+
+import dynamic from "next/dynamic";
+import Loading from "@/components/loading";
+
+const AboutPage = dynamic(() => import("@/components/pages/about/AboutPage"), {
+  ssr: false,
+  loading: () => <Loading fullScreen />,
+});
 
 const Page = () => {
   return (
     <>
-      <AboutPage/>
+      <AboutPage />
     </>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export const data = [
   {
@@ -119,7 +120,7 @@ const WorkPage = () => {
         </p>
 
         {/* Button */}
-        <button className="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-400 
+        <Link href={`/posts/detail/${item.id}`} className="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-400 
           hover:text-indigo-800 dark:hover:text-indigo-300 
           transition-colors duration-300 group/button cursor-pointer"
         >
@@ -144,7 +145,7 @@ const WorkPage = () => {
               d="M14 5l7 7m0 0l-7 7m7-7H3"
             />
           </svg>
-        </button>
+        </Link>
       </div>
     </div>
   ))}
