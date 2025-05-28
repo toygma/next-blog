@@ -11,16 +11,20 @@ const BlogPage = dynamic(() => import("@/components/pages/blog/BlogPage"), {
 
 export const metadata: Metadata = {
   title: "Dev-Journey Blogs",
-}
+};
 
+type PageProps = {
+  searchParams?: Promise<{ page: string; pageSize: string }>;
+};
+const Page = async ({ searchParams }: PageProps) => {
+  const currentPage = parseInt((await searchParams)?.page || "1");
+  const postsPerPage = parseInt((await searchParams)?.pageSize || "4");
 
-const Page = async ({ searchParams }: any) => {
- const currentPage = parseInt((searchParams.page as string) || "1");
-  const postsPerPage = parseInt((searchParams.pageSize as string) || "4");
   const { data, totalCount } = await getAllPostsBlogs(
     currentPage,
     postsPerPage
   );
+
   return (
     <>
       <Suspense fallback={<Loading fullScreen />}>

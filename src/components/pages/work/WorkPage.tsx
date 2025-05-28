@@ -1,15 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { PostType } from "@/types/post.type";
+import DOMPurify from "dompurify";
 
 interface WorkPageProps {
   posts?: PostType[] | undefined;
 }
 const WorkPage = ({ posts }: WorkPageProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
 
   return (
     <motion.div
@@ -87,7 +89,13 @@ const WorkPage = ({ posts }: WorkPageProps) => {
 
             {/* Description */}
             <p className="text-gray-600 dark:text-gray-300 mb-4 transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-white">
-              {item.content.slice(0, 80)}...
+              <div
+                  ref={contentRef}
+                  className="prose prose-lg max-w-none dark:prose-invert tiptap"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(item?.content.slice(0,150)),
+                  }}
+                />
             </p>
 
             {/* Button */}

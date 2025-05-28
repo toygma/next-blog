@@ -15,10 +15,12 @@ export const metadata: Metadata = {
     description:
       "Discover the projects he developed during his software development journey. Here are some sample works done with React, Next.js and modern web technologies!",
 }
-
-const Page = async ({ searchParams }: any) => {
-  const currentPage = parseInt((searchParams.page as string) || "1");
-  const postsPerPage = parseInt((searchParams.pageSize as string) || "4");
+type PageProps = {
+  searchParams?: Promise<{ page: string; pageSize: string }>;
+};
+const Page = async ({ searchParams }: PageProps) => {
+   const currentPage = parseInt((await searchParams)?.page || "1");
+  const postsPerPage = parseInt((await searchParams)?.pageSize || "4");
   const { data, totalCount } = await getAllPostsProjects(
     currentPage,
     postsPerPage
