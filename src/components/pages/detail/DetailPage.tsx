@@ -1,11 +1,12 @@
 "use client";
-
 import { useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import moment from "moment";
 import { minRead } from "@/utils/helper";
 import DOMPurify from "dompurify";
+import LikeButton from "@/components/liked/LikeButton";
+import type { Like } from "@prisma/client";
 
 type DetailPageProps = {
   posts: {
@@ -23,13 +24,12 @@ type DetailPageProps = {
       image_url: string | null;
     };
   };
+  likes: Like[];
+  isLiked: boolean;
 };
 
-
-const DetailPage = ({ posts }: DetailPageProps) => {
+const DetailPage = ({ posts, isLiked, likes }: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  console.log("🚀 ~ DetailPage ~ posts:", posts);
-
 
   return (
     <main className="flex flex-col">
@@ -70,13 +70,14 @@ const DetailPage = ({ posts }: DetailPageProps) => {
         <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4 uppercase text-center">
           {posts?.title}
         </h1>
-          <div
+        <div
           ref={contentRef}
           className="prose prose-lg max-w-none dark:prose-invert tiptap"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(posts?.content),
           }}
         />
+        <LikeButton postId={posts.id} likes={likes} isLiked={isLiked} />
       </div>
     </main>
   );
