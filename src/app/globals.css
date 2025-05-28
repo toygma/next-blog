@@ -138,11 +138,15 @@
   height:40px;
 }
 
-.tiptap h1, h2, h3, h4 {
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4 {
   font-weight: bold;
   margin-top: 1.5em;
   margin-bottom: .8em;
 }
+
 .tiptap .ql-align-center {
   color: #555;
   border-left: 4px solid #ccc;
@@ -150,15 +154,19 @@
   margin: 1rem 0;
   background-color: #f9f9f9;
 }
-.tiptap ol, ul {
+.tiptap ol,
+.tiptap ul {
   margin-left: 2em;
   margin-bottom: 1em;
 }
 
-.tiptap ol li {
+.tiptap ol,
+.tiptap li {
   list-style: disc;
 }
-
+.tiptap p > strong{
+  margin-bottom: 1em !important;
+}
 .ql-code-block {
   background: #23272e;
   color: #f8f8f2;

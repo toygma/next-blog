@@ -1,5 +1,4 @@
 "use client";
-import "prismjs/themes/prism-tomorrow.css";
 
 import { useRef } from "react";
 import Image from "next/image";
