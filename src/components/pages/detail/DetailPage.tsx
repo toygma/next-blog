@@ -6,13 +6,15 @@ import moment from "moment";
 import { minRead } from "@/utils/helper";
 import DOMPurify from "dompurify";
 import LikeButton from "@/components/liked/LikeButton";
-import type {  Like } from "@prisma/client";
+import type { Like } from "@prisma/client";
 import { Card } from "@/components/ui/card";
-import { MessageCircle } from "lucide-react";
+import { LogIn, MessageCircle } from "lucide-react";
 import CommentForm from "@/components/comments/CommentsForm";
 import CommentList from "@/components/comments/CommentLists";
 import { Separator } from "@/components/ui/separator";
 import { CommentType } from "@/types/post.type";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 type DetailPageProps = {
   posts: {
@@ -33,10 +35,17 @@ type DetailPageProps = {
   likes: Like[];
   isLiked: boolean;
   comments: CommentType[];
+  userId: string;
+  
 };
 
-
-const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
+const DetailPage = ({
+  posts,
+  isLiked,
+  likes,
+  comments,
+  userId,
+}: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -96,7 +105,21 @@ const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
           </div>
 
           {/* Comment Form */}
-          <CommentForm postId={posts?.id} user={posts?.author} />
+          {userId ? (
+            <CommentForm postId={posts?.id}  />
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-border p-6 shadow-sm bg-background/60">
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <LogIn className="h-6 w-6 text-primary" />
+                <h2 className="text-xl font-semibold">Log in to comment</h2>
+              </div>
+              <Link href="/sign-in">
+                <Button variant="default" className="px-6 py-2 text-sm">
+                  Go to Login
+                </Button>
+              </Link>
+            </div>
+          )}
           <Separator />
           {/* Comments List */}
           <CommentList comments={comments} />

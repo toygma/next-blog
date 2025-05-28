@@ -38,13 +38,19 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
   {
     /* Liked Form */
   }
-  const likes = await prisma.like.findMany({ where: { postId: posts.id } });
+  const likes = await prisma?.like?.findMany({ where: { postId: posts.id } });
   const { userId } = await auth();
-  const user = await prisma.user.findUnique({
-    where: { clerkUserId: userId as string },
-  });
 
-  const isLiked = likes.some((like) => like.userId === user?.id);
+  let user:any = null;
+  let isLiked = false;
+
+  if (userId) {
+    user = await prisma.user.findUnique({
+      where: { clerkUserId: userId },
+    });
+
+    isLiked = likes.some((like) => like?.userId === user?.id);
+  }
   {
     /* comment Form */
   }
@@ -62,6 +68,7 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
     },
   });
 
+
   return (
     <Suspense fallback={<Loading fullScreen />}>
       <DetailPage
@@ -69,6 +76,7 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
         isLiked={isLiked}
         likes={likes}
         comments={comments}
+        userId={user?.id}
       />
     </Suspense>
   );

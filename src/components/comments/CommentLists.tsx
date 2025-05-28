@@ -2,6 +2,7 @@ import type { Prisma } from "@prisma/client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import moment from "moment";
+import { nameSplit } from "@/utils/helper";
 type CommentListProps = {
   comments: Prisma.CommentGetPayload<{
     include: {
@@ -16,6 +17,7 @@ type CommentListProps = {
   }>[];
 };
 const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+  console.log("🚀 ~ comments:", comments)
   return (
     <div className="space-y-8 ">
       {comments.map((comment) => (
@@ -29,7 +31,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments }) => {
           <div className="flex-1">
             <div className="mb-2">
               <span className="font-medium text-foreground">
-                {comment.author.name}
+                {nameSplit(comment?.author?.name as string)}
               </span>
               <span className="text-sm text-muted-foreground ml-2">
                 {moment(comment?.createdAt).format("L")}

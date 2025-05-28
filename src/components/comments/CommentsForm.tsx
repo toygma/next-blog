@@ -12,18 +12,18 @@ import {
   commentPostSchema,
 } from "@/validation/comment.schema";
 import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 
 type CommentFormProps = {
   postId: string;
-  user: {
-    name: string | null;
-    email: string | null;
-    image_url: string | null;
-  };
+  
 };
 
-const CommentForm: React.FC<CommentFormProps> = ({ postId, user }) => {
+const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [isPending, startTransition] = useTransition();
+    const { user } = useUser();
+    console.log("🚀 ~ user:", user)
+
 
   const form = useForm<CommentPostInput>({
     resolver: zodResolver(commentPostSchema),
@@ -57,9 +57,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, user }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="mb-8">
         <div className="flex gap-4">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={user?.image_url || ""} />
+            <AvatarImage src={user?.imageUrl || ""} />
             <AvatarFallback>
-              {user?.name?.charAt(0).toUpperCase() || "?"}
+              {user?.firstName?.charAt(0).toUpperCase() || "?"}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">
