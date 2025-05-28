@@ -21,6 +21,11 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
           image_url: true,
         },
       },
+      categories: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
   if (!posts) {
