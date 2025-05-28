@@ -1,16 +1,19 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { CommentsSvg, Eyes, LikedSvg } from "@/lib/svg";
 import { PostType } from "@/types/post.type";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 
 interface BlogsPageProps {
   posts?: PostType[] | undefined;
 }
 
 const BlogPage = ({ posts }: BlogsPageProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -36,7 +39,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
             ></div>
 
             {/* Image */}
-            <div className="md:aspect-[14/8] aspect-auto relative overflow-hidden rounded-xl group max-md:h-[400px] max-md:w-full">
+            <div className="md:aspect-[14/8] md:flex-1 aspect-auto relative overflow-hidden rounded-xl group max-md:h-[400px] max-md:w-full">
               <Image
                 alt={item.title}
                 src={item.featuredImage}
@@ -53,7 +56,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
             </div>
 
             {/* Content */}
-            <div className="relative w-full">
+            <div className="relative md:flex-1 w-full">
               {/* Categories */}
               <div className="flex flex-wrap gap-2 mb-3">
                 {item.categories.map((category, index) => (
@@ -84,7 +87,13 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
                 className="text-gray-600 dark:text-gray-300 mb-4 
             transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-white"
               >
-                {item.content.slice(0, 80)}...
+                <div
+                  ref={contentRef}
+                  className="prose prose-lg max-w-none dark:prose-invert tiptap"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(item?.content.slice(0,150)),
+                  }}
+                />
               </p>
 
               {/* Button */}

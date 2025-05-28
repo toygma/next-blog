@@ -1,9 +1,12 @@
 "use client";
+import "prismjs/themes/prism-tomorrow.css";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import moment from "moment";
 import { minRead } from "@/utils/helper";
+import DOMPurify from "dompurify";
 
 type DetailPageProps = {
   posts: {
@@ -23,8 +26,11 @@ type DetailPageProps = {
   };
 };
 
+
 const DetailPage = ({ posts }: DetailPageProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
   console.log("🚀 ~ DetailPage ~ posts:", posts);
+
 
   return (
     <main className="flex flex-col">
@@ -65,7 +71,13 @@ const DetailPage = ({ posts }: DetailPageProps) => {
         <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4 uppercase text-center">
           {posts?.title}
         </h1>
-         
+          <div
+          ref={contentRef}
+          className="prose prose-lg max-w-none dark:prose-invert tiptap"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(posts?.content),
+          }}
+        />
       </div>
     </main>
   );

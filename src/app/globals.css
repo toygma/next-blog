@@ -138,3 +138,34 @@
   height:40px;
 }
 
+.tiptap h1, h2, h3, h4 {
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: .8em;
+}
+.tiptap .ql-align-center {
+  color: #555;
+  border-left: 4px solid #ccc;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  background-color: #f9f9f9;
+}
+.tiptap ol, ul {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+.tiptap ol li {
+  list-style: disc;
+}
+
+.ql-code-block {
+  background: #23272e;
+  color: #f8f8f2;
+  font-family: "Fira Mono", "Consolas", monospace;
+  padding: 1em;
+  border-radius: 6px;
+  margin: 1em 0;
+  overflow-x: auto;
+  font-size: 1rem;
+}
