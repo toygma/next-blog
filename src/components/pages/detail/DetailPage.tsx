@@ -6,7 +6,12 @@ import moment from "moment";
 import { minRead } from "@/utils/helper";
 import DOMPurify from "dompurify";
 import LikeButton from "@/components/liked/LikeButton";
-import type { Like } from "@prisma/client";
+import type { Comment, Like } from "@prisma/client";
+import { Card } from "@/components/ui/card";
+import { MessageCircle } from "lucide-react";
+import CommentForm from "@/components/comments/CommentsForm";
+import CommentList from "@/components/comments/CommentLists";
+import { Separator } from "@/components/ui/separator";
 
 type DetailPageProps = {
   posts: {
@@ -26,9 +31,10 @@ type DetailPageProps = {
   };
   likes: Like[];
   isLiked: boolean;
+  comments: Comment[];
 };
 
-const DetailPage = ({ posts, isLiked, likes }: DetailPageProps) => {
+const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -78,6 +84,21 @@ const DetailPage = ({ posts, isLiked, likes }: DetailPageProps) => {
           }}
         />
         <LikeButton postId={posts.id} likes={likes} isLiked={isLiked} />
+        {/* Comments Section */}
+        <Card className="p-6 mb-6">
+          <div className="flex items-center gap-2 mb-8">
+            <MessageCircle className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-semibold text-foreground">
+              {comments.length} Comments
+            </h2>
+          </div>
+
+          {/* Comment Form */}
+          <CommentForm postId={posts.id} user={posts?.author} />
+          <Separator />
+          {/* Comments List */}
+          <CommentList comments={comments} />
+        </Card>
       </div>
     </main>
   );

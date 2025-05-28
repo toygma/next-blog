@@ -52,7 +52,9 @@ const FormInput = ({
               />
             )}
           </FormControl>
-          <FormMessage className="font-medium text-sm text-red-500">{error?.message}</FormMessage>
+          <FormMessage className="font-medium text-sm text-red-500">
+            {error?.message}
+          </FormMessage>
         </FormItem>
       )}
     />

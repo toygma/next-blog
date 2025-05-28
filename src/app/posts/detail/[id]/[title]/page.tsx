@@ -10,6 +10,9 @@ type ArticleDetailPageProps = {
 
 const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
   const id = (await params).id;
+  {
+    /* Post detail Form */
+  }
   const posts = await prisma.post.findUnique({
     where: {
       id,
@@ -32,7 +35,9 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
   if (!posts) {
     return <h1>Article not found.</h1>;
   }
-
+  {
+    /* Liked Form */
+  }
   const likes = await prisma.like.findMany({ where: { postId: posts.id } });
   const { userId } = await auth();
   const user = await prisma.user.findUnique({
@@ -40,10 +45,31 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
   });
 
   const isLiked = likes.some((like) => like.userId === user?.id);
+  {
+    /* comment Form */
+  }
+  const comments = await prisma.comment.findMany({
+    where: { postId: posts.id },
+    orderBy: { createdAt: "desc" },
+    include: {
+      author: {
+        select: {
+          name: true,
+          email: true,
+          image_url: true,
+        },
+      },
+    },
+  });
 
   return (
     <Suspense fallback={<Loading fullScreen />}>
-      <DetailPage posts={posts} isLiked={isLiked} likes={likes}/>
+      <DetailPage
+        posts={posts}
+        isLiked={isLiked}
+        likes={likes}
+        comments={comments}
+      />
     </Suspense>
   );
 };
