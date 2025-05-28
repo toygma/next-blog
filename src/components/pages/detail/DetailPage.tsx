@@ -6,12 +6,13 @@ import moment from "moment";
 import { minRead } from "@/utils/helper";
 import DOMPurify from "dompurify";
 import LikeButton from "@/components/liked/LikeButton";
-import type { Comment, Like } from "@prisma/client";
+import type {  Like } from "@prisma/client";
 import { Card } from "@/components/ui/card";
 import { MessageCircle } from "lucide-react";
 import CommentForm from "@/components/comments/CommentsForm";
 import CommentList from "@/components/comments/CommentLists";
 import { Separator } from "@/components/ui/separator";
+import { CommentType } from "@/types/post.type";
 
 type DetailPageProps = {
   posts: {
@@ -31,8 +32,9 @@ type DetailPageProps = {
   };
   likes: Like[];
   isLiked: boolean;
-  comments: Comment[];
+  comments: CommentType[];
 };
+
 
 const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
