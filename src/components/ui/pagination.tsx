@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react"
 import {
   ChevronLeftIcon,
@@ -7,6 +8,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -46,13 +48,12 @@ function PaginationLink({
   className,
   isActive,
   size = "icon",
+  href,
   ...props
 }: PaginationLinkProps) {
   return (
-    <a
-      aria-current={isActive ? "page" : undefined}
-      data-slot="pagination-link"
-      data-active={isActive}
+    <Link
+      href={href ?? "#"}
       className={cn(
         buttonVariants({
           variant: isActive ? "outline" : "ghost",
@@ -60,6 +61,9 @@ function PaginationLink({
         }),
         className
       )}
+      aria-current={isActive ? "page" : undefined}
+      data-slot="pagination-link"
+      data-active={isActive}
       {...props}
     />
   )

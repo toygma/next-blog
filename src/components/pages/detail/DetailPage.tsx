@@ -43,7 +43,7 @@ const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
     <main className="flex flex-col">
       <header className="mb-4">
         <div className="flex flex-wrap gap-2 mb-4">
-          {posts.categories.map((item) => (
+          {posts?.categories?.map((item) => (
             <>
               <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
                 {item.name}
@@ -53,11 +53,11 @@ const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
         </div>
         <div className="flex items-center gap-4 text-muted-foreground">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={posts.author.image_url as string} />
-            <AvatarFallback>{posts.id}</AvatarFallback>
+            <AvatarImage src={posts?.author?.image_url as string} />
+            <AvatarFallback>{posts?.id}</AvatarFallback>
           </Avatar>
           <div>
-            <p className="font-medium text-foreground">{posts.author.name}</p>
+            <p className="font-medium text-foreground">{posts?.author?.name}</p>
             <p className="text-sm">
               {moment(posts?.createdAt).format("L")} · {minRead(posts?.content)}{" "}
               min read
@@ -91,12 +91,12 @@ const DetailPage = ({ posts, isLiked, likes, comments }: DetailPageProps) => {
           <div className="flex items-center gap-2 mb-8">
             <MessageCircle className="h-6 w-6 text-primary" />
             <h2 className="text-2xl font-semibold text-foreground">
-              {comments.length} Comments
+              {comments?.length} Comments
             </h2>
           </div>
 
           {/* Comment Form */}
-          <CommentForm postId={posts.id} user={posts?.author} />
+          <CommentForm postId={posts?.id} user={posts?.author} />
           <Separator />
           {/* Comments List */}
           <CommentList comments={comments} />
