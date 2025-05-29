@@ -16,7 +16,7 @@ const ModalUserButton = () => {
   const isAdmin = user?.publicMetadata?.isAdmin === true;
 
   return (
-    <div className="flex items-center gap-2 md:gap-3">
+    <div className="flex items-center gap-2  px-4">
       <SignedIn>
         <UserButton />
       </SignedIn>

@@ -88,7 +88,7 @@ const WorkPage = ({ posts }: WorkPageProps) => {
             </h2>
 
             {/* Description */}
-            <p className="text-gray-600 dark:text-gray-300 mb-4 transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-white">
+            <p className="text-gray-600 dark:text-gray-300 mb-4 transition-all duration-500 group-hover:text-gray-600 dark:group-hover:text-white">
               <div
                   ref={contentRef}
                   className="prose prose-lg max-w-none dark:prose-invert tiptap"

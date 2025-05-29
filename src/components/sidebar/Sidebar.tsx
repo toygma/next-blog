@@ -29,7 +29,7 @@ const Sidebar = () => {
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
         <div className="px-8 pt-6 flex flex-col">
-          <h4 className="text-[10px] text-[#111827] dark:text-gray-200">SKILLS & TOOLS</h4>
+          <h2 className="text-[10px] text-[#111827] dark:text-gray-200">SKILLS & TOOLS</h2>
           <p className="flex flex-wrap gap-2 mt-4">
             {SkillData.map((skill) => (
               <span
@@ -42,7 +42,7 @@ const Sidebar = () => {
           </p>
         </div>
         <div className="px-8 pt-12 flex flex-col gap-2 pb-4">
-          <h1 className="text-[10px] text-[#111827] dark:text-gray-200">CONTACT</h1>
+          <h2 className="text-[10px] text-[#111827] dark:text-gray-200">CONTACT</h2>
           <div className="flex items-center gap-2">
             <EmailSvg />
             <a href={"mailto:utkutoygunbektasoglu@gmail.com"}  className="text-[14px] text-[#374151] hover:underline dark:text-gray-200">
@@ -51,11 +51,11 @@ const Sidebar = () => {
           </div>
           <div className="flex items-center gap-2">
             <LocationSvg />
-            <h4 className="text-[14px] text-[#374151] dark:text-gray-200">Istanbul, Turkey</h4>
+            <h3 className="text-[14px] text-[#374151] dark:text-gray-200">Istanbul, Turkey</h3>
           </div>
           <div className="flex items-center gap-2">
             <MessageSvg />
-            <h4 className="text-[14px] text-[#374151] dark:text-gray-200">English, Turkish</h4>
+            <h3 className="text-[14px] text-[#374151] dark:text-gray-200">English, Turkish</h3>
           </div>
         </div>
       </div>

@@ -85,7 +85,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
               {/* Description */}
               <p
                 className="text-gray-600 dark:text-gray-300 mb-4 
-            transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-white"
+            transition-all duration-500 group-hover:text-gray-600 dark:group-hover:text-white"
               >
                 <div
                   ref={contentRef}
@@ -128,18 +128,18 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
 
               {/* Meta Info */}
               <div className="flex items-center gap-2 mt-4 mb-2">
-                <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center">
+                <p className="text-gray-500 dark:text-gray-600 text-sm flex items-center">
                   01.01.2025 - 7 min read
                 </p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center">
+                <p className="text-gray-500 dark:text-gray-600 text-sm flex items-center">
                   <Eyes />
                   <span className="-mt-[2px] ml-1">3</span>
                 </p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-1">
+                <p className="text-gray-500 dark:text-gray-600 text-sm flex items-center gap-1">
                   <CommentsSvg />
                   <span className="-mt-[2px]">3</span>
                 </p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center -mt-[1px]">
+                <p className="text-gray-500 dark:text-gray-600 text-sm flex items-center -mt-[1px]">
                   <LikedSvg />
                   <span className="-mt-[1px] ml-1">3</span>
                 </p>

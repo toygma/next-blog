@@ -41,7 +41,7 @@ const Header = () => {
               <span className="bg-gray-600 absolute bottom-0 left-0 h-[2px] w-[70px] group-hover:w-full transition-all duration-300"></span>
             </h1>
           </Link>
-          <div className="flex items-center sm:gap-4 gap-2">
+          <div className="flex items-center  gap-2">
             <DarkModeButton />
             <ModalUserButton />
             <div className="md:inline hidden">
