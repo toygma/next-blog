@@ -16,7 +16,6 @@ import { useUser } from "@clerk/nextjs";
 
 type CommentFormProps = {
   postId: string;
-  
 };
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {

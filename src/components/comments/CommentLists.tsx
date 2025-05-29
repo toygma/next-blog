@@ -1,6 +1,5 @@
 "use client";
-import type { Prisma } from "@prisma/client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import moment from "moment";
 import { nameSplit } from "@/utils/helper";
@@ -8,20 +7,19 @@ import { DeleteSvg, EditSvg } from "@/lib/svg";
 import { useAuth } from "@clerk/nextjs";
 import EditingComment from "./partials/EditingComment";
 type CommentListProps = {
-  comments: Prisma.CommentGetPayload<{
-    include: {
-      author: {
-        select: {
-          name: true;
-          email: true;
-          image_url: true;
-          clerkUserId: true;
-        };
-      };
+  comments: {
+    author: {
+      name: string | null;
+      email: string | null;
+      image_url: string | null;
+      clerkUserId?: string | null;
     };
-  }>[];
+    id: string;
+    createdAt: Date;
+    content: string;
+  }[];
 };
-const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+const CommentList = ({ comments }: CommentListProps) => {
   const { userId } = useAuth();
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   return (
