@@ -63,6 +63,7 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
           name: true,
           email: true,
           image_url: true,
+          clerkUserId:true,
         },
       },
     },

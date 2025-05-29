@@ -24,6 +24,7 @@ import {
 import { createPosts } from "@/lib/actions/create.post";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
+import { showFormErrors } from "@/utils/showErrors";
 
 const CreatePage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,12 +47,9 @@ const CreatePage = () => {
 
     try {
       const result = await createPosts(formData);
-
-      if (Object.keys(result.errors).length > 0) {
-        Object.entries(result.errors).forEach(([field, errors]) => {
-          errors.forEach((error) => toast.error(`${field}: ${error}`));
-        });
-        return;
+      if (result.errors) {
+        showFormErrors(result?.errors);
+        return
       } else {
         toast.success("Created Post Successfully");
         form.reset();
