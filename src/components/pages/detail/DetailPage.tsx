@@ -114,7 +114,7 @@ const DetailPage = ({
                 <h2 className="text-xl font-semibold">Log in to comment</h2>
               </div>
               <Link href="/sign-in">
-                <Button variant="default" className="px-6 py-2 text-sm">
+                <Button variant="default" className="px-6 py-2 text-sm"  type="button">
                   Go to Login
                 </Button>
               </Link>

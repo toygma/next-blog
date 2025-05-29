@@ -53,10 +53,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({
        {likeCount > 0 ?  <ThumbsDown className="h-5 w-5" />: <ThumbsUp className="h-5 w-5" />}
         {likeCount}
       </Button>
-      <Button variant="ghost" className="gap-2">
+      <Button variant="ghost" className="gap-2"  type="button">
         <Bookmark className="h-5 w-5" /> Save
       </Button>
-      <Button variant="ghost" className="gap-2">
+      <Button variant="ghost" className="gap-2"  type="button">
         <Share2 className="h-5 w-5" /> Share
       </Button>
     </div>

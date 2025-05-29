@@ -7,6 +7,7 @@ const DarkModeButton = () => {
   return (
     <div>
       <Button
+      type="button"
         className="w-10 h-9   cursor-pointer"
         color="gray"
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}

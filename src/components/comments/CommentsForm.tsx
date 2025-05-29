@@ -70,7 +70,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
               error={form.formState.errors.content}
             />
             <div className="mt-4 flex justify-end">
-              <Button loading={isPending} disabled={isPending}>
+              <Button type="submit" loading={isPending} disabled={isPending}>
                 Send
               </Button>
             </div>

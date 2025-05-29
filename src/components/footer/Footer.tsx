@@ -9,7 +9,8 @@ const Footer = () => {
         <div className="px-4 py-8 flex justify-between items-center md:flex-row flex-col md:gap-0 gap-4">
           <div className="flex items-center gap-2 text-gray-400 flex-1">
             <a
-              href="https://www.youtube.com/@DevJourneyYT"
+              href="https://www.youtube.com/@toko_dev"
+              aria-label="Youtube Profile of Toygun Bektasoglu"
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-110"
@@ -17,7 +18,8 @@ const Footer = () => {
               <YoutubeSvg />
             </a>
             <a
-              href="https://www.linkedin.com/in/utku-bektasoglu/"
+              href="https://www.linkedin.com/in/toko-dev/"
+              aria-label="Linkedin Profile of Toygun Bektasoglu"
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-110"
@@ -25,8 +27,9 @@ const Footer = () => {
               <LinkedinSvg />
             </a>
             <a
-              href="https://github.com/utkbkts"
+              href="https://github.com/t0kodev"
               target="_blank"
+              aria-label="Github Profile of Toygun Bektasoglu"
               rel="noopener noreferrer"
               className="cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-110"
             >

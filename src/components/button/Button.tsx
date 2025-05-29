@@ -10,6 +10,7 @@ const ButtonGetInTouch = ({ setIsModalOpen }: Props) => {
     <Button
       onClick={() => setIsModalOpen(true)}
       variant={"default"}
+      type="button"
       className="cursor-pointer hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500"
     >
       <svg
