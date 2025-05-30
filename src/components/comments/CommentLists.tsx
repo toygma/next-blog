@@ -6,6 +6,10 @@ import { nameSplit } from "@/utils/helper";
 import { DeleteSvg, EditSvg } from "@/lib/svg";
 import { useAuth } from "@clerk/nextjs";
 import EditingComment from "./partials/EditingComment";
+import DeleteModal from "./partials/DeleteModel";
+import { toast } from "sonner";
+import { deleteComment } from "@/lib/actions/delete.comment";
+import { showFormErrors } from "@/utils/showErrors";
 type CommentListProps = {
   comments: {
     author: {
@@ -22,6 +26,18 @@ type CommentListProps = {
 const CommentList = ({ comments }: CommentListProps) => {
   const { userId } = useAuth();
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDeleteConfirm = async (id:string) => {
+    const result = await deleteComment(id);
+    if (result.success) {
+      toast.success("Comment deleted successfully");
+      setIsModalOpen(false);
+    } else {
+      showFormErrors(result.errors);
+    }
+  };
+
   return (
     <div className="space-y-8 ">
       {comments.map((comment) => (
@@ -53,7 +69,18 @@ const CommentList = ({ comments }: CommentListProps) => {
                   >
                     <EditSvg />
                   </span>
-                  <DeleteSvg />
+                  <span onClick={() => setIsModalOpen(true)}>
+                    <DeleteSvg />
+                  </span>
+                    <DeleteModal
+                      isOpen={isModalOpen}
+                      onCancel={() => {
+                        setIsModalOpen(false);
+                      }}
+                      onConfirm={()=>{
+                        handleDeleteConfirm(comment.id)
+                      }}
+                    />
                 </div>
               )}
             </div>
