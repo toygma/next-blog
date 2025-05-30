@@ -6,7 +6,7 @@ import ThemeComp from "@/components/themes/ThemeComp";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,8 +14,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DevJourney",
+  title: "Toygma",
   description: "Full Stack Developer Journey, Frontend, Backend, Full Stack",
+  openGraph: {
+    images: [
+      {
+        url: "/images/toygma-min.png",
+        width: 1200,
+        height: 630,
+        alt: "Toygma Open Graph Image",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -39,7 +49,7 @@ export default function RootLayout({
                 <main className="flex-grow">{children}</main>
                 <Footer />
               </div>
-               <Toaster richColors duration={3000} position="top-center"/>
+              <Toaster richColors duration={3000} position="top-center" />
             </ThemeComp>
           </ThemeProvider>
         </body>

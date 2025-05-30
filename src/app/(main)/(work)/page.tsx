@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import type { Metadata } from "next";
 import Loading from "@/components/loading";
 import { getAllPostsProjects } from "@/lib/actions/get.posts";
 import { PaginationWithLinks } from "@/components/ui/pagination-with";
@@ -10,11 +9,7 @@ const WorkPage = dynamic(() => import("@/components/pages/work/WorkPage"), {
   loading: () => <Loading fullScreen />,
 });
 
-export const metadata: Metadata = {
-  title: "Dev-Journey Projects",
-    description:
-      "Discover the projects he developed during his software development journey. Here are some sample works done with React, Next.js and modern web technologies!",
-}
+
 type PageProps = {
   searchParams?: Promise<{ page: string; pageSize: string }>;
 };

@@ -48,7 +48,7 @@ const AboutPage = () => {
           <div className="md:aspect-[12/9] w-full relative">
             <Image
               alt="About Image"
-              src="/images/about.png"
+              src="/images/toygma-min.png"
               width={500}
               height={500}
               className="object-cover w-full h-full rounded-lg shadow-xl drop-shadow-2xl shadow-blue-500/40"

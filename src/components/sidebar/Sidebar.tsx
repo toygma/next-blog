@@ -16,7 +16,7 @@ const Sidebar = () => {
           <div className="w-44 h-44">
             <Image
               alt="Profile"
-              src="/images/me.png"
+              src="/images/toygma-min.png"
               width={350}
               height={350}
               className="rounded-full mb-4 w-full h-full"
