@@ -12,12 +12,14 @@ type DeleteModalProps = {
   isOpen: boolean;
   onConfirm: () => void;
   onCancel: () => void;
+  loading:boolean;
 };
 
 const DeleteModal = ({
   isOpen,
   onConfirm,
   onCancel,
+  loading,
 }: DeleteModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onCancel}>
@@ -34,7 +36,7 @@ const DeleteModal = ({
           <Button variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={onConfirm}>
+          <Button disabled={loading} loading={loading} variant="destructive" onClick={onConfirm}>
             Yes, Delete
           </Button>
         </div>

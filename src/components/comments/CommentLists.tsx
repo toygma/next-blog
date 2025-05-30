@@ -27,13 +27,18 @@ const CommentList = ({ comments }: CommentListProps) => {
   const { userId } = useAuth();
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleDeleteConfirm = async (id:string) => {
+  const handleDeleteConfirm = async (id: string) => {
+    setLoading(true);
     const result = await deleteComment(id);
     if (result.success) {
       toast.success("Comment deleted successfully");
       setIsModalOpen(false);
+      setLoading(false);
     } else {
+      setLoading(false);
+
       showFormErrors(result.errors);
     }
   };
@@ -72,15 +77,16 @@ const CommentList = ({ comments }: CommentListProps) => {
                   <span onClick={() => setIsModalOpen(true)}>
                     <DeleteSvg />
                   </span>
-                    <DeleteModal
-                      isOpen={isModalOpen}
-                      onCancel={() => {
-                        setIsModalOpen(false);
-                      }}
-                      onConfirm={()=>{
-                        handleDeleteConfirm(comment.id)
-                      }}
-                    />
+                  <DeleteModal
+                    isOpen={isModalOpen}
+                    onCancel={() => {
+                      setIsModalOpen(false);
+                    }}
+                    loading={loading}
+                    onConfirm={() => {
+                      handleDeleteConfirm(comment.id);
+                    }}
+                  />
                 </div>
               )}
             </div>
