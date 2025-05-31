@@ -21,7 +21,7 @@ const ModalUserButton = () => {
         <UserButton />
       </SignedIn>
       {isAdmin && (
-        <Link href={"/admin/create"}>
+        <Link href={"/admin/dashboard"}>
           <Button type="button" className="block w-full text-left px-3 py-2 ">
             Admin Panel
           </Button>

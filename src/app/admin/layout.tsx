@@ -1,8 +1,8 @@
 import "@/app/globals.css";
+import Sidebar from "@/components/pages/admin/Sidebar";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-
 
 export const metadata: Metadata = {
   title: "Admin Panel",
@@ -24,7 +24,8 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
     redirect("/");
   }
   return (
-    <div  className="min-h-screen flex flex-col mt-32">
+    <div className="flex mt-[75px]">
+      <Sidebar />
       <main className="flex-grow">{children}</main>
     </div>
   );
