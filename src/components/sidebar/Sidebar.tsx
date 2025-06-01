@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ButtonGetInTouch from "../button/Button";
-import Modal from "../modal/Modal";
+import Modal from "../modal/ContactModal";
 import { SkillData } from "./partials/SkillData";
 import { EmailSvg, LocationSvg, MessageSvg } from "@/lib/svg";
 

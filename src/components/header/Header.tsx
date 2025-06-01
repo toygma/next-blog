@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Modal from "../modal/Modal";
+import Modal from "../modal/ContactModal";
 import ButtonGetInTouch from "../button/Button";
 import ModalUserButton from "./partials/ModalUserButton";
 import DarkModeButton from "./partials/DarkModeButton";
