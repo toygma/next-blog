@@ -6,10 +6,10 @@ import { nameSplit } from "@/utils/helper";
 import { DeleteSvg, EditSvg } from "@/lib/svg";
 import { useAuth } from "@clerk/nextjs";
 import EditingComment from "./partials/EditingComment";
-import DeleteModal from "./partials/DeleteModel";
 import { toast } from "sonner";
 import { deleteComment } from "@/lib/actions/delete.comment";
 import { showFormErrors } from "@/utils/showErrors";
+import Modal from "../ui/modal";
 type CommentListProps = {
   comments: {
     author: {
@@ -77,11 +77,13 @@ const CommentList = ({ comments }: CommentListProps) => {
                   <span onClick={() => setIsModalOpen(true)}>
                     <DeleteSvg />
                   </span>
-                  <DeleteModal
+                  <Modal
                     isOpen={isModalOpen}
                     onCancel={() => {
                       setIsModalOpen(false);
                     }}
+                    title="Are you sure you want to delete this comment?"
+                    description="This action cannot be undone. This comment will be permanently deleted."
                     loading={loading}
                     onConfirm={() => {
                       handleDeleteConfirm(comment.id);

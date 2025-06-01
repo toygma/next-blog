@@ -12,31 +12,36 @@ type DeleteModalProps = {
   isOpen: boolean;
   onConfirm: () => void;
   onCancel: () => void;
-  loading:boolean;
+  loading: boolean;
+  title: string;
+  description: string;
 };
 
-const DeleteModal = ({
+const Modal = ({
   isOpen,
   onConfirm,
   onCancel,
   loading,
+  title,
+  description,
 }: DeleteModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            Are you sure you want to delete this comment?
-          </DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This comment will be permanently deleted.
-          </DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="flex justify-end gap-2 mt-4">
           <Button variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button disabled={loading} loading={loading} variant="destructive" onClick={onConfirm}>
+          <Button
+            disabled={loading}
+            loading={loading}
+            variant="destructive"
+            onClick={onConfirm}
+          >
             Yes, Delete
           </Button>
         </div>
@@ -45,4 +50,4 @@ const DeleteModal = ({
   );
 };
 
-export default DeleteModal;
+export default Modal;

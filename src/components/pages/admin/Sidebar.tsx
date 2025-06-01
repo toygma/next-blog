@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   BarChart,
@@ -10,8 +10,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
     <div>
@@ -23,11 +26,11 @@ const Sidebar = () => {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-[250px]">
-          <DashboardSidebar closeSheet={() => setIsOpen(false)} />
+          <DashboardSidebar closeSheet={() => setIsOpen(false)} pathname={pathname} />
         </SheetContent>
       </Sheet>
       <div className="hidden md:block h-screen w-[250px] border-r bg-background">
-        <DashboardSidebar />
+        <DashboardSidebar pathname={pathname} />
       </div>
     </div>
   );
@@ -35,7 +38,31 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
+function DashboardSidebar({
+  closeSheet,
+  pathname,
+}: {
+  closeSheet?: () => void;
+  pathname: string;
+}) {
+  const links = [
+    {
+      href: "/admin/dashboard",
+      label: "Overview",
+      icon: LayoutDashboard,
+    },
+    {
+      href: "/admin/create",
+      label: "Create",
+      icon: FileText,
+    },
+    {
+      href: "/admin/comments",
+      label: "Comments",
+      icon: MessageCircle,
+    },
+  ];
+
   return (
     <div className="h-full px-4 py-6">
       <div className="flex items-center gap-2 mb-8 px-2">
@@ -44,37 +71,22 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
         </Link>
       </div>
       <nav className="space-y-1">
-        <Link href={"/admin/dashboard"}>
-          <Button
-            variant="ghost"
-            className="w-full justify-start"
-            onClick={closeSheet}
-          >
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            Overview
-          </Button>
-        </Link>
+        {links.map(({ href, label, icon: Icon }) => (
+          <Link href={href} key={href}>
+            <Button
+              variant="ghost"
+              className={`w-full justify-start ${
+                pathname === href ? "bg-muted" : ""
+              }`}
+              onClick={closeSheet}
+            >
+              <Icon className="mr-2 h-4 w-4" />
+              {label}
+            </Button>
+          </Link>
+        ))}
 
-        <Link href={"/admin/create"}>
-          <Button
-            variant="ghost"
-            className="w-full justify-start"
-            onClick={closeSheet}
-          >
-            <FileText className="mr-2 h-4 w-4" />
-            Create
-          </Button>
-        </Link>
-        <Link href={"/admin/comments"}>
-          <Button
-            variant="ghost"
-            className="w-full justify-start"
-            onClick={closeSheet}
-          >
-            <MessageCircle className="mr-2 h-4 w-4" />
-            Comments
-          </Button>
-        </Link>
+        {/* Static Items */}
         <Button
           variant="ghost"
           className="w-full justify-start"
