@@ -64,6 +64,7 @@ export const columns: ColumnDef<ExtendedComment>[] = [
     cell: (info) => info.getValue(),
   },
   {
+    header: () => <p>Action</p>,
     id: "more",
     cell: ({ row }) => <RowActions comment={row.original} />,
     enableSorting: false,

@@ -2,11 +2,9 @@
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
-  BarChart,
   FileText,
   LayoutDashboard,
   MessageCircle,
-  Settings,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -20,7 +18,7 @@ const Sidebar = () => {
     <div>
       {/* Mobile Sidebar */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetTrigger asChild>
+        <SheetTrigger asChild className="fixed right-32">
           <Button variant="outline" className="md:hidden m-4">
             <LayoutDashboard className="h-5 w-5" />
           </Button>
@@ -64,7 +62,7 @@ function DashboardSidebar({
   ];
 
   return (
-    <div className="h-full px-4 py-6">
+    <div className="h-full px-4 py-6 dark:bg-[#18181B]">
       <div className="flex items-center gap-2 mb-8 px-2">
         <Link href={"/"}>
           <span className="text-xl font-bold">Toygma Admin Panel</span>
@@ -85,24 +83,6 @@ function DashboardSidebar({
             </Button>
           </Link>
         ))}
-
-        {/* Static Items */}
-        <Button
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={closeSheet}
-        >
-          <BarChart className="mr-2 h-4 w-4" />
-          Analytics
-        </Button>
-        <Button
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={closeSheet}
-        >
-          <Settings className="mr-2 h-4 w-4" />
-          Settings
-        </Button>
       </nav>
     </div>
   );

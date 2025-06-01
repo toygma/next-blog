@@ -34,10 +34,10 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="rounded-md border w-full h-[800px] flex flex-col gap-4">
+    <div className="rounded-md  w-full h-[800px] flex flex-col gap-4">
       <div className="rounded-md border flex flex-2/3 flex-col overflow-hidden">
         <Table>
-        <TableHeader className="sticky top-0 z-10 bg-background shadow-md">
+        <TableHeader className="sticky top-0 z-10 bg-background dark:bg-[#18181B]">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {

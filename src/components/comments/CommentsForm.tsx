@@ -21,7 +21,7 @@ type CommentFormProps = {
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [isPending, startTransition] = useTransition();
     const { user } = useUser();
-    console.log("🚀 ~ user:", user)
+    
 
 
   const form = useForm<CommentPostInput>({
