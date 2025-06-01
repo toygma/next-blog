@@ -2,7 +2,7 @@
 import React, { useTransition } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { createComments } from "@/lib/actions/create.comment";
+import { createComments } from "@/lib/actions/user/create.comment";
 import FormInput from "../input/FormInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -7,7 +7,7 @@ import { DeleteSvg, EditSvg } from "@/lib/svg";
 import { useAuth } from "@clerk/nextjs";
 import EditingComment from "./partials/EditingComment";
 import { toast } from "sonner";
-import { deleteComment } from "@/lib/actions/delete.comment";
+import { deleteComment } from "@/lib/actions/user/delete.comment";
 import { showFormErrors } from "@/utils/showErrors";
 import Modal from "../ui/modal";
 type CommentListProps = {

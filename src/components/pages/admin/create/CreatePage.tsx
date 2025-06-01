@@ -21,7 +21,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { createPosts } from "@/lib/actions/create.post";
+import { createPosts } from "@/lib/actions/admin/create.post";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { showFormErrors } from "@/utils/showErrors";

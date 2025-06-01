@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Loading from "@/components/loading";
 import { PaginationWithLinks } from "@/components/ui/pagination-with";
-import { getAllPostsBlogs } from "@/lib/actions/get.posts";
+import { getAllPostsBlogs } from "@/lib/actions/admin/get.posts";
 import dynamic from "next/dynamic";
 
 const BlogPage = dynamic(() => import("@/components/pages/blog/BlogPage"), {

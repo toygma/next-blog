@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Loading from "@/components/loading";
-import { getAllPostsProjects } from "@/lib/actions/get.posts";
+import { getAllPostsProjects } from "@/lib/actions/admin/get.posts";
 import { PaginationWithLinks } from "@/components/ui/pagination-with";
 
 

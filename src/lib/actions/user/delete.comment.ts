@@ -1,34 +1,21 @@
 "use server";
 
-import { commentPostSchema } from "@/validation/comment.schema";
-import prisma from "../prisma";
+import prisma from "../../prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
-type EditCommentFormState = {
+type DeleteCommentFormState = {
   success?: boolean;
   errors?: {
     commentId?: string;
-    content?: string[];
     formErrors?: string[];
   };
 };
 
-export const editComment = async (
-  commentId: string,
-  content: string
-): Promise<EditCommentFormState> => {
-  const result = commentPostSchema.safeParse({ content });
+export const deleteComment = async (
+  commentId: string
+): Promise<DeleteCommentFormState> => {
   const { userId } = await auth();
-
-  if (!result.success) {
-    return {
-      errors: {
-        content: result.error.flatten().fieldErrors.content,
-        formErrors: result.error.flatten().formErrors,
-      },
-    };
-  }
 
   if (!commentId || commentId.trim() === "") {
     return {
@@ -53,7 +40,7 @@ export const editComment = async (
   if (!existingUser) {
     return {
       errors: {
-        formErrors: ["User not found. Please register before editing a comment."],
+        formErrors: ["User not found. Please register before deleting a comment."],
       },
     };
   }
@@ -73,18 +60,14 @@ export const editComment = async (
   if (existingComment.authorId !== existingUser.id) {
     return {
       errors: {
-        formErrors: ["You are not allowed to edit this comment."],
+        formErrors: ["You are not allowed to delete this comment."],
       },
     };
   }
 
   try {
-    await prisma.comment.update({
+    await prisma.comment.delete({
       where: { id: commentId },
-      data: {
-        content: result.data.content,
-        updatedAt: new Date(),
-      },
     });
     revalidatePath(`/posts/detail`);
     return { success: true };

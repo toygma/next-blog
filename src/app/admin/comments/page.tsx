@@ -20,7 +20,7 @@ async function getData(): Promise<ExtendedComment[]> {
   });
 }
 
-export default async function DemoPage() {
+export default async function page() {
   const data = await getData();
 
   return (

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import FormInput from "@/components/input/FormInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { editComment } from "@/lib/actions/edit.comment";
+import { editComment } from "@/lib/actions/user/edit.comment";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {

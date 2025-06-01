@@ -1,6 +1,6 @@
 "use server";
 import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
-import prisma from "../prisma";
+import prisma from "../../prisma";
 import { auth } from "@clerk/nextjs/server";
 import { createPostSchema } from "@/validation/create.schema";
 import { revalidatePath } from "next/cache";
@@ -11,7 +11,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-type CreateArticleFormState = {
+type UpdateArticleFormState = {
   errors: {
     title?: string[];
     postType?: string[];
@@ -23,29 +23,16 @@ type CreateArticleFormState = {
   success?: boolean;
 };
 
-export const createPosts = async (
+export const updatePost = async (
+  postId: string,
   formData: FormData
-): Promise<CreateArticleFormState> => {
+): Promise<UpdateArticleFormState> => {
   let uploadResult: UploadApiResponse | null = null;
+
   try {
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
     const rawCategories = formData.get("categories");
     const imageFile = formData.get("featuredImage") as File | null;
-    if ((imageFile as any).size > MAX_FILE_SIZE) {
-      return {
-        errors: {
-          featuredImage: ["Image size must be less than 2 MB"],
-        },
-      };
-    }
-
-    if (!imageFile || imageFile?.name === "undefined") {
-      return {
-        errors: {
-          featuredImage: ["Image file is required."],
-        },
-      };
-    }
 
     const result = createPostSchema.safeParse({
       title: formData.get("title"),
@@ -69,21 +56,21 @@ export const createPosts = async (
       };
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: { clerkUserId: userId },
+    const existingPost = await prisma.post.findUnique({
+      where: { id: postId },
+      include: { categories: true },
     });
 
-    if (!existingUser) {
+    if (!existingPost || existingPost.authorId !== userId) {
       return {
         errors: {
-          formErrors: ["User not found. Please register."],
+          formErrors: ["Post not found or unauthorized."],
         },
       };
     }
 
-    const categories = result.data.categories;
     const connectedCategories = await Promise.all(
-      categories.map(async (cat: { value: string }) => {
+      result.data.categories.map(async (cat: { value: string }) => {
         return await prisma.category.upsert({
           where: { name: cat.value },
           update: {},
@@ -92,38 +79,59 @@ export const createPosts = async (
       })
     );
 
-    const arrayBuffer = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    let imageUrl = existingPost.featuredImage;
 
-    uploadResult = await new Promise<UploadApiResponse>((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        { resource_type: "auto", folder: "website" },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result!);
-        }
-      );
-      uploadStream.end(buffer);
-    });
+    if (imageFile && imageFile.name !== "undefined") {
+      if ((imageFile as any).size > MAX_FILE_SIZE) {
+        return {
+          errors: {
+            featuredImage: ["Image size must be less than 2 MB"],
+          },
+        };
+      }
 
-    // Post created
-    await prisma.post.create({
+      // Upload new image
+      const arrayBuffer = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      uploadResult = await new Promise<UploadApiResponse>((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { resource_type: "auto", folder: "website" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result!);
+          }
+        );
+        uploadStream.end(buffer);
+      });
+
+      const publicId = getPublicIdFromUrl(existingPost.featuredImage);
+      if (publicId) {
+        await deleteCloudinaryImage(publicId);
+      }
+
+      imageUrl = uploadResult.secure_url;
+    }
+
+    await prisma.post.update({
+      where: { id: postId },
       data: {
-        postType: result.data.postType,
         title: result.data.title,
+        postType: result.data.postType,
+        content: result.data.content,
+        featuredImage: imageUrl,
         categories: {
+          set: [], 
           connect: connectedCategories.map((cat) => ({ id: cat.id })),
         },
-        content: result.data.content,
-        featuredImage: uploadResult.secure_url,
-        authorId: existingUser.clerkUserId,
       },
     });
 
     revalidatePath("/");
+
     return { success: true, errors: {} };
   } catch (error) {
-    console.error("Create post error:", error);
+    console.error("Update post error:", error);
 
     if (uploadResult?.public_id) {
       await deleteCloudinaryImage(uploadResult.public_id);
@@ -131,10 +139,11 @@ export const createPosts = async (
 
     return {
       errors: {
-        formErrors: ["An error occurred. Please try again."],
+        formErrors: ["An error occurred while updating the post."],
       },
     };
   }
+
 };
 
 async function deleteCloudinaryImage(publicId: string) {
@@ -143,4 +152,11 @@ async function deleteCloudinaryImage(publicId: string) {
   } catch (err) {
     console.error("Error deleting image from Cloudinary:", err);
   }
+}
+
+function getPublicIdFromUrl(url: string): string | null {
+  const parts = url.split("/");
+  const publicIdWithExtension = parts.slice(-1)[0];
+  const [publicId] = publicIdWithExtension.split(".");
+  return publicId ? `website/${publicId}` : null;
 }
