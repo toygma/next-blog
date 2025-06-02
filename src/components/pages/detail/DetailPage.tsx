@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import moment from "moment";
@@ -15,6 +15,11 @@ import { Separator } from "@/components/ui/separator";
 import { CommentType } from "@/types/post.type";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { DeleteSvg, EditSvg } from "@/lib/svg";
+import { deletePost } from "@/lib/actions/admin/delete.post";
+import { toast } from "sonner";
+import { useParams, useRouter } from "next/navigation";
+import Modal from "@/components/ui/modal";
 
 type DetailPageProps = {
   posts: {
@@ -36,7 +41,6 @@ type DetailPageProps = {
   isLiked: boolean;
   comments: CommentType[];
   userId: string;
-  
 };
 
 const DetailPage = ({
@@ -47,6 +51,28 @@ const DetailPage = ({
   userId,
 }: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const id = useParams()?.id as string;
+  const [isPending, startTransition] = useTransition();
+  const [modalOpen, setModalOpen] = useState(false);
+  const router = useRouter();
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    startTransition(async () => {
+      const result = await deletePost(id);
+      if (result.success) {
+        toast.success("Post deleted successfully");
+        setModalOpen(false);
+        router.push("/");
+      } else {
+        toast.error(result.error || "Something went wrong");
+        setModalOpen(false);
+      }
+    });
+  };
 
   return (
     <main className="flex flex-col">
@@ -60,17 +86,37 @@ const DetailPage = ({
             </>
           ))}
         </div>
-        <div className="flex items-center gap-4 text-muted-foreground">
-          <Avatar className="h-10 w-10">
-            <AvatarImage src={posts?.author?.image_url as string} />
-            <AvatarFallback>{posts?.id}</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="font-medium text-foreground">{posts?.author?.name}</p>
-            <p className="text-sm">
-              {moment(posts?.createdAt).format("L")} · {minRead(posts?.content)}{" "}
-              min read
-            </p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 text-muted-foreground">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={posts?.author?.image_url as string} />
+              <AvatarFallback>{posts?.id}</AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="font-medium text-foreground">
+                {posts?.author?.name}
+              </p>
+              <p className="text-sm">
+                {moment(posts?.createdAt).format("L")} ·{" "}
+                {minRead(posts?.content)} min read
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 pr-4">
+            <EditSvg />
+            <div>
+              <span onClick={handleModalOpen}>
+                <DeleteSvg />
+              </span>
+              <Modal
+                isOpen={modalOpen}
+                onCancel={() => setModalOpen(false)}
+                onConfirm={handleConfirmDelete}
+                loading={isPending}
+                title="Delete Post"
+                description="Are you sure you want to delete this post? This action cannot be undone."
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -106,7 +152,7 @@ const DetailPage = ({
 
           {/* Comment Form */}
           {userId ? (
-            <CommentForm postId={posts?.id}  />
+            <CommentForm postId={posts?.id} />
           ) : (
             <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-border p-6 shadow-sm bg-background/60">
               <div className="flex items-center gap-3 text-muted-foreground">
@@ -114,7 +160,11 @@ const DetailPage = ({
                 <h2 className="text-xl font-semibold">Log in to comment</h2>
               </div>
               <Link href="/sign-in">
-                <Button variant="default" className="px-6 py-2 text-sm"  type="button">
+                <Button
+                  variant="default"
+                  className="px-6 py-2 text-sm"
+                  type="button"
+                >
                   Go to Login
                 </Button>
               </Link>
