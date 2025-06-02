@@ -137,14 +137,34 @@
   height: 40px;
 }
 
-.tiptap h1,
-.tiptap h2,
-.tiptap h3,
-.tiptap h4 {
+.tiptap h1 {
+  font-size: 2.25rem; /* 36px */
   font-weight: bold;
   margin-top: 1.5em;
   margin-bottom: 0.8em;
 }
+
+.tiptap h2 {
+  font-size: 1.875rem; /* 30px */
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+.tiptap h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+.tiptap h4 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
 
 .tiptap .ql-align-center {
   color: #555;
@@ -166,7 +186,7 @@
 .tiptap p > strong {
   margin-bottom: 1em !important;
 }
-.ql-code-block {
+/* .ql-code-block {
   background: #23272e;
   color: #f8f8f2;
   font-family: "Fira Mono", "Consolas", monospace;
@@ -175,7 +195,7 @@
   margin: 1em 0;
   overflow-x: auto;
   font-size: 1rem;
-}
+} */
 
 
 .ql-container {
@@ -202,4 +222,8 @@
 
 .tiptap li[data-list="bullet"] {
   list-style-type: disc;
+}
+.tiptap p a{
+  color: rgb(86, 86, 240);
+  text-decoration: underline;
 }

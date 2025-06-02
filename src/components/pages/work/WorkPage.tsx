@@ -96,7 +96,7 @@ const WorkPage = ({ posts }: WorkPageProps) => {
                 ref={contentRef}
                 className="prose prose-lg max-w-none dark:prose-invert tiptap mb-4 transition-all duration-500 group-hover:text-gray-600 dark:group-hover:text-white"
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(item?.content.slice(0, 250)),
+                  __html: DOMPurify.sanitize(item?.content.slice(0, 100)),
                 }}
               />
             </div>

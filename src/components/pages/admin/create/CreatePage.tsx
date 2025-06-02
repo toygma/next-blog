@@ -2,6 +2,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { quillModules } from "@/lib/quillModules";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
@@ -49,7 +50,6 @@ const CreatePage = () => {
       const result = await createPosts(formData);
       if (result.errors) {
         showFormErrors(result?.errors);
-        return;
       } else {
         toast.success("Created Post Successfully");
         form.reset();
@@ -153,9 +153,10 @@ const CreatePage = () => {
                         <ReactQuill
                           theme="snow"
                           placeholder="Write something..."
-                          className="h-72 mb-12"
+                          className="h-72 mb-12 max-w-[800px]"
                           value={field.value || ""}
                           onChange={field.onChange}
+                          modules={quillModules}
                         />
                       </FormControl>
                       <FormMessage className="font-medium text-sm text-red-500">
