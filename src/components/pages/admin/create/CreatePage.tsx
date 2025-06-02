@@ -25,6 +25,7 @@ import { createPosts } from "@/lib/actions/admin/create.post";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { showFormErrors } from "@/utils/showErrors";
+import Image from "next/image";
 
 const CreatePage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +41,6 @@ const CreatePage = () => {
     formData.append("content", data.content);
     formData.append("postType", data.postType);
     formData.append("categories", JSON.stringify(data.categories));
-
     if (data.featuredImage instanceof File) {
       formData.append("featuredImage", data.featuredImage);
     }
@@ -49,7 +49,7 @@ const CreatePage = () => {
       const result = await createPosts(formData);
       if (result.errors) {
         showFormErrors(result?.errors);
-        return
+        return;
       } else {
         toast.success("Created Post Successfully");
         form.reset();
@@ -64,7 +64,7 @@ const CreatePage = () => {
     }
   };
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 h-full">
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Create New Post</CardTitle>
@@ -130,6 +130,16 @@ const CreatePage = () => {
                     </FormItem>
                   )}
                 />
+                 {form.watch("featuredImage") instanceof File && (
+                  <Image
+                    src={URL.createObjectURL(form.watch("featuredImage" ) as any)}
+                    alt="featuredImage"
+                    title="featuredImage"
+                    width={400}
+                    height={400}
+                    className="object-cover h-[500px] w-full"
+                  />
+                )}
               </div>
 
               <div className="space-y-2">
@@ -154,6 +164,7 @@ const CreatePage = () => {
                     </FormItem>
                   )}
                 />
+               
               </div>
 
               <div className="flex justify-end gap-4">

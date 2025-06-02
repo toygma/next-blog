@@ -105,7 +105,7 @@ export const updatePost = async (
         uploadStream.end(buffer);
       });
 
-      const publicId = getPublicIdFromUrl(existingPost.featuredImage);
+      const publicId = extractPublicId(existingPost.featuredImage);
       if (publicId) {
         await deleteCloudinaryImage(publicId);
       }
@@ -154,9 +154,13 @@ async function deleteCloudinaryImage(publicId: string) {
   }
 }
 
-function getPublicIdFromUrl(url: string): string | null {
-  const parts = url.split("/");
-  const publicIdWithExtension = parts.slice(-1)[0];
-  const [publicId] = publicIdWithExtension.split(".");
-  return publicId ? `website/${publicId}` : null;
+function extractPublicId(url: string): string | null {
+  try {
+    const parts = url.split("/");
+    const publicIdWithExtension = parts.slice(-2).join("/"); 
+    const publicId = publicIdWithExtension.replace(/\.[^/.]+$/, "");
+    return publicId;
+  } catch {
+    return null;
+  }
 }

@@ -27,7 +27,7 @@ const Sidebar = () => {
           <DashboardSidebar closeSheet={() => setIsOpen(false)} pathname={pathname} />
         </SheetContent>
       </Sheet>
-      <div className="hidden md:block h-screen w-[250px] border-r bg-background">
+      <div className="hidden md:block h-full w-[250px] border-r bg-background">
         <DashboardSidebar pathname={pathname} />
       </div>
     </div>
@@ -62,7 +62,7 @@ function DashboardSidebar({
   ];
 
   return (
-    <div className="h-full px-4 py-6 dark:bg-[#18181B]">
+    <div className="min-h-full px-4 py-6 dark:bg-[#18181B]">
       <div className="flex items-center gap-2 mb-8 px-2">
         <Link href={"/"}>
           <span className="text-xl font-bold">Toygma Admin Panel</span>

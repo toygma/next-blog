@@ -103,7 +103,9 @@ const DetailPage = ({
             </div>
           </div>
           <div className="flex items-center gap-2 pr-4">
-            <EditSvg />
+            <span onClick={() => router.push(`/admin/edit/${posts?.id}`)} >
+              <EditSvg />
+            </span>
             <div>
               <span onClick={handleModalOpen}>
                 <DeleteSvg />
