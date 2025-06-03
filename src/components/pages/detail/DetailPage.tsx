@@ -21,6 +21,7 @@ import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import Modal from "@/components/ui/modal";
 import { incrementPostViews } from "@/lib/actions/user/increment.views";
+import { useUser } from "@clerk/nextjs";
 
 type DetailPageProps = {
   posts: {
@@ -53,6 +54,7 @@ const DetailPage = ({
 }: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const id = useParams()?.id as string;
+  const { user } = useUser();
   const [isPending, startTransition] = useTransition();
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
@@ -61,10 +63,10 @@ const DetailPage = ({
     const viewedKey = `viewedKey-${id}`;
     const alreadyViewed = localStorage.getItem(viewedKey);
     if (!alreadyViewed) {
-    incrementPostViews(id);
-    localStorage.setItem(viewedKey, "true");
-  }
-}, [id]);
+      incrementPostViews(id);
+      localStorage.setItem(viewedKey, "true");
+    }
+  }, [id]);
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -88,9 +90,12 @@ const DetailPage = ({
     <main className="flex flex-col">
       <header className="mb-4">
         <div className="flex flex-wrap gap-2 mb-4">
-          {posts?.categories?.map((item) => (
+          {posts?.categories?.map((item, index) => (
             <>
-              <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
+              <span
+                key={index}
+                className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
+              >
                 {item.name}
               </span>
             </>
@@ -112,24 +117,26 @@ const DetailPage = ({
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2 pr-4">
-            <span onClick={() => router.push(`/admin/edit/${posts?.id}`)}>
-              <EditSvg />
-            </span>
-            <div>
-              <span onClick={handleModalOpen}>
-                <DeleteSvg />
+          {user?.publicMetadata?.isAdmin === "true" && (
+            <div className="flex items-center gap-2 pr-4">
+              <span onClick={() => router.push(`/admin/edit/${posts?.id}`)}>
+                <EditSvg />
               </span>
-              <Modal
-                isOpen={modalOpen}
-                onCancel={() => setModalOpen(false)}
-                onConfirm={handleConfirmDelete}
-                loading={isPending}
-                title="Delete Post"
-                description="Are you sure you want to delete this post? This action cannot be undone."
-              />
+              <div>
+                <span onClick={handleModalOpen}>
+                  <DeleteSvg />
+                </span>
+                <Modal
+                  isOpen={modalOpen}
+                  onCancel={() => setModalOpen(false)}
+                  onConfirm={handleConfirmDelete}
+                  loading={isPending}
+                  title="Delete Post"
+                  description="Are you sure you want to delete this post? This action cannot be undone."
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </header>
       <div className="w-full">
