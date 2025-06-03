@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { PostType } from "@/types/post.type";
-import DOMPurify from "dompurify";
 import { CommentsSvg, Eyes, LikedSvg } from "@/lib/svg";
 import moment from "moment";
 import { minRead } from "@/utils/helper";
@@ -14,7 +12,6 @@ interface WorkPageProps {
   posts?: PostType[] | undefined;
 }
 const WorkPage = ({ posts }: WorkPageProps) => {
-  const contentRef = useRef<HTMLDivElement>(null);
 
   return (
     <motion.div
@@ -90,15 +87,6 @@ const WorkPage = ({ posts }: WorkPageProps) => {
               >
                 {item.title}
               </h2>
-
-              {/* Description */}
-              <div
-                ref={contentRef}
-                className="prose prose-lg max-w-none dark:prose-invert tiptap mb-4 transition-all duration-500 group-hover:text-gray-600 dark:group-hover:text-white"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(item?.content.slice(0, 100)),
-                }}
-              />
             </div>
 
             <div className="mt-auto">

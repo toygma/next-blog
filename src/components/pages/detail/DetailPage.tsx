@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import moment from "moment";
@@ -20,6 +20,7 @@ import { deletePost } from "@/lib/actions/admin/delete.post";
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import Modal from "@/components/ui/modal";
+import { incrementPostViews } from "@/lib/actions/user/increment.views";
 
 type DetailPageProps = {
   posts: {
@@ -55,6 +56,15 @@ const DetailPage = ({
   const [isPending, startTransition] = useTransition();
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const viewedKey = `viewedKey-${id}`;
+    const alreadyViewed = localStorage.getItem(viewedKey);
+    if (!alreadyViewed) {
+    incrementPostViews(id);
+    localStorage.setItem(viewedKey, "true");
+  }
+}, [id]);
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -103,7 +113,7 @@ const DetailPage = ({
             </div>
           </div>
           <div className="flex items-center gap-2 pr-4">
-            <span onClick={() => router.push(`/admin/edit/${posts?.id}`)} >
+            <span onClick={() => router.push(`/admin/edit/${posts?.id}`)}>
               <EditSvg />
             </span>
             <div>
