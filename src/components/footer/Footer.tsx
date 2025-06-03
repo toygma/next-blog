@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { GithubSvg, LinkedinSvg, YoutubeSvg } from "@/lib/svg";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -43,12 +44,12 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex items-center gap-2 flex-1 justify-end">
-            <p className="text-[14px] text-gray-600 cursor-pointer hover:underline">
+            <Link href={"/privacy"} className="text-[14px] text-gray-600 cursor-pointer hover:underline">
               Privacy
-            </p>
-            <p className="text-[14px] text-gray-600 cursor-pointer hover:underline">
+            </Link>
+            <Link href={"/terms"} className="text-[14px] text-gray-600 cursor-pointer hover:underline">
               Terms
-            </p>
+            </Link>
           </div>
         </div>
       </div>
