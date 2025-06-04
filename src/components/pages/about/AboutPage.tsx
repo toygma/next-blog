@@ -57,20 +57,20 @@ const AboutPage = () => {
           <div className="mt-20 flex flex-col gap-3 md:items-start items-center">
             <p className="flex items-center gap-2 text-[16px]  text-[#52525b] hover:bg-background  cursor-pointer p-2 rounded-md  group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500 dark:text-gray-200">
               <GithubSvg />
-              <a href={"https://github.com/t0kodev"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent" aria-label="Github Profile of Toygun Bektasoglu">
+              <a href={"https://github.com/toygma"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent" aria-label="Github Profile of Toygun Bektasoglu">
                 {" "}
                 Follow me on GitHub
               </a>
             </p>
             <p className="flex items-center gap-2 text-[16px]  text-[#52525b] hover:bg-background  cursor-pointer p-2 rounded-md  group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500 dark:text-gray-200">
               <LinkedinSvg />
-              <a href={"https://www.linkedin.com/in/toko-dev/"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent" aria-label="Likedin Profile of Toygun Bektasoglu">
+              <a href={"https://www.linkedin.com/in/toygma/"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent" aria-label="Likedin Profile of Toygun Bektasoglu">
                 Follow me on Linkedin
               </a>
             </p>
             <p className="flex items-center gap-2 text-[16px]  text-[#52525b] hover:bg-background  cursor-pointer p-2 rounded-md  group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500 dark:text-gray-200">
               <YoutubeSvg />
-              <a href={"https://www.youtube.com/@toko_dev"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent" aria-label="Youtube Profile of Toygun Bektasoglu">
+              <a href={"https://www.youtube.com/@toygma"} rel="noopener noreferrer" target="_blank" className="group-hover:text-transparent" aria-label="Youtube Profile of Toygun Bektasoglu">
                 Follow me on Youtube
               </a>
             </p>

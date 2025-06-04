@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="px-4 py-8 flex justify-between items-center md:flex-row flex-col md:gap-0 gap-4">
           <div className="flex items-center gap-2 text-gray-600 flex-1">
             <a
-              href="https://www.youtube.com/@toko_dev"
+              href="https://www.youtube.com/@toygma"
               aria-label="Youtube Profile of Toygun Bektasoglu"
               target="_blank"
               rel="noopener noreferrer"
@@ -19,7 +19,7 @@ const Footer = () => {
               <YoutubeSvg />
             </a>
             <a
-              href="https://www.linkedin.com/in/toko-dev/"
+              href="https://www.linkedin.com/in/toygma/"
               aria-label="Linkedin Profile of Toygun Bektasoglu"
               target="_blank"
               rel="noopener noreferrer"
@@ -28,7 +28,7 @@ const Footer = () => {
               <LinkedinSvg />
             </a>
             <a
-              href="https://github.com/t0kodev"
+              href="https://github.com/toygma"
               target="_blank"
               aria-label="Github Profile of Toygun Bektasoglu"
               rel="noopener noreferrer"
