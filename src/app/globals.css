@@ -186,6 +186,7 @@
 .tiptap p > strong {
   margin-bottom: 1em !important;
 }
+<<<<<<< HEAD
 .ql-code-block {
   margin: 0;
   padding: 0.75em 1em;
@@ -197,6 +198,17 @@
   line-height: 1.6;
   border-left: 4px solid #4ecdc4;
   white-space: pre-wrap;
+=======
+ .ql-code-block {
+  background: #23272e;
+  color: #f8f8f2;
+  font-family: "Fira Mono", "Consolas", monospace;
+  padding: 1em;
+  border-radius: 6px;
+  margin: 1em 0;
+  overflow-x: auto;
+  font-size: 16px;
+>>>>>>> cf63001fe96cd6c6b34831a5a55564a0e96db226
 }
 
 .ql-editor pre.ql-code-block + pre.ql-code-block {

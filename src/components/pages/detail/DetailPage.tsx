@@ -117,7 +117,7 @@ const DetailPage = ({
               </p>
             </div>
           </div>
-          {user?.publicMetadata?.isAdmin === "true" && (
+          {user?.publicMetadata?.isAdmin === true && (
             <div className="flex items-center gap-2 pr-4">
               <span onClick={() => router.push(`/admin/edit/${posts?.id}`)}>
                 <EditSvg />
