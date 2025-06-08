@@ -186,7 +186,7 @@
 .tiptap p > strong {
   margin-bottom: 1em !important;
 }
-/* .ql-code-block {
+ .ql-code-block {
   background: #23272e;
   color: #f8f8f2;
   font-family: "Fira Mono", "Consolas", monospace;
@@ -195,7 +195,7 @@
   margin: 1em 0;
   overflow-x: auto;
   font-size: 1rem;
-} */
+} 
 
 
 .ql-container {
