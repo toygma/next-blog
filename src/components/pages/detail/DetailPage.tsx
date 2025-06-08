@@ -87,7 +87,7 @@ const DetailPage = ({
   };
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col md:p-0 p-4">
       <header className="mb-4">
         <div className="flex flex-wrap gap-2 mb-4">
           {posts?.categories?.map((item, index) => (

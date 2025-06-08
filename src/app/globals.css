@@ -186,17 +186,26 @@
 .tiptap p > strong {
   margin-bottom: 1em !important;
 }
- .ql-code-block {
-  background: #23272e;
-  color: #f8f8f2;
-  font-family: "Fira Mono", "Consolas", monospace;
-  padding: 1em;
-  border-radius: 6px;
-  margin: 1em 0;
+.ql-code-block {
+  margin: 0;
+  padding: 0.75em 1em;
+  background-color: #1e1e1e;
+  color: #dcdcdc;
+  font-family: 'Fira Code', 'Courier New', monospace;
   overflow-x: auto;
-  font-size: 1rem;
-} 
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid #4ecdc4;
+  white-space: pre-wrap;
+}
 
+.ql-editor pre.ql-code-block + pre.ql-code-block {
+  margin-top: 0;
+}
+
+.ql-editor pre.ql-code-block {
+  margin: 0; 
+}
 
 .ql-container {
   height: 300px !important;
