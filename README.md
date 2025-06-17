@@ -40,6 +40,29 @@ A beautiful and modern recruiting and portfolio platform built with **Next.js 15
 
 ---
 
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/301b7af1-77c8-4fdd-a343-c10a5af73055" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/3dbf4349-b6f7-45bb-9bb4-9d2dd467d43a" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/69b973a0-41c5-4ff3-ad00-bd421b0ae505" width="300"/></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/26b60782-435d-49b5-aaa0-0b1c7fbeace0" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/b0fdb65c-7cf4-4367-b80d-68757b7a29e9" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/7dcd9133-8f18-4e43-b3c6-c4240a9cb034" width="300"/></td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
 ## 🧑‍💻 Getting Started
 
 ### 🔧 Prerequisites
