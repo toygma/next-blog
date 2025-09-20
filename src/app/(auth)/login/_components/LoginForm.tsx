@@ -19,27 +19,32 @@ import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { Checkbox } from "@/components/ui/checkbox";
 import { signInSchema, SignInSchemaType } from "@/validation/auth.schema";
+import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const [formPending, startFormTransition] = useTransition();
-
+  const router = useRouter();
   const form = useForm<SignInSchemaType>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false
+      rememberMe: false,
     },
   });
 
-  async function onSubmit({ email, password,rememberMe }: SignInSchemaType) {
+  async function onSubmit({ email, password, rememberMe }: SignInSchemaType) {
     startFormTransition(async () => {
       const { error } = await authClient.signIn.email({
         email,
         password,
-        rememberMe
+        rememberMe,
       });
       if (error) {
         toast.error(error.message || "Failed to login. Please try again.");
+      }else{
+        toast.success("Logged in successfully!");
+        router.refresh();
+        router.push("/");
       }
     });
   }
@@ -123,21 +128,21 @@ const LoginForm = () => {
                   </FormItem>
                 )}
               />
-                <FormField
-              control={form.control}
-              name="rememberMe"
-              render={({ field }) => (
-                <FormItem className="flex items-center gap-2">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormLabel>Remember me</FormLabel>
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="rememberMe"
+                render={({ field }) => (
+                  <FormItem className="flex items-center gap-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>Remember me</FormLabel>
+                  </FormItem>
+                )}
+              />
               <Button
                 type="submit"
                 disabled={formPending}

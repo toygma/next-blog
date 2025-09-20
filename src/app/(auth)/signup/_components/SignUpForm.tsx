@@ -45,13 +45,13 @@ const SignUpForm = () => {
       if (error) {
         toast.error(error.message || "Failed to login. Please try again.");
       }else{
-        toast.success("Account created! Please verify your email.");
-        router.push("/")
+        toast.success("Account created! Please wait, you are being redirected.");
+        router.push("/email-verified")
       }
     });
   }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center">
       <Card className="w-full max-w-sm mx-auto shadow-lg rounded-xl bg-white dark:bg-slate-900 border dark:border-slate-800">
         <CardHeader className="text-center space-y-2">
           <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-50">
