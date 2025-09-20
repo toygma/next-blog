@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import React, { useState, useTransition, useEffect } from "react";
-import type { Like } from "@prisma/client";
 import { toggleLike } from "@/lib/actions/user/like.toggle";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { Like } from "@/lib/generated/prisma";
 
 type LikeButtonProps = {
   postId: string;
