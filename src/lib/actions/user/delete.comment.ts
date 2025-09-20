@@ -1,7 +1,7 @@
 "use server";
 
+import { getServerSession } from "@/lib/get-session";
 import prisma from "../../prisma";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 type DeleteCommentFormState = {
@@ -15,7 +15,8 @@ type DeleteCommentFormState = {
 export const deleteComment = async (
   commentId: string
 ): Promise<DeleteCommentFormState> => {
-  const { userId } = await auth();
+     const session = await getServerSession();
+ 
 
   if (!commentId || commentId.trim() === "") {
     return {
@@ -25,7 +26,7 @@ export const deleteComment = async (
     };
   }
 
-  if (!userId) {
+  if (!session.user.id) {
     return {
       errors: {
         formErrors: ["You have to login first"],
@@ -34,7 +35,7 @@ export const deleteComment = async (
   }
 
   const existingUser = await prisma.user.findUnique({
-    where: { clerkUserId: userId },
+    where: { id: session.user.id },
   });
 
   if (!existingUser) {
@@ -57,7 +58,7 @@ export const deleteComment = async (
     };
   }
 
-  if (existingComment.authorId !== existingUser.id) {
+  if (existingComment.userId !== existingUser.id) {
     return {
       errors: {
         formErrors: ["You are not allowed to delete this comment."],

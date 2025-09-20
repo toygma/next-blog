@@ -1,7 +1,5 @@
-export type UserFromClerk = {
-  clerkUserId:string;
-  first_name: string | null;
-  last_name: string | null;
-  image_url: string | null;
-  email: string
-};
+import { User } from "better-auth"
+
+export type ProfileInformationProps = {
+  user:User
+}

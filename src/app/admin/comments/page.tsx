@@ -8,7 +8,7 @@ import type { ExtendedComment } from "@/types/comment.type";
 async function getData(): Promise<ExtendedComment[]> {
   return await prisma.comment.findMany({
     include: {
-      author: {
+      user: {
         select: {
           id: true,
           name: true,

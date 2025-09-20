@@ -16,12 +16,11 @@ export async function DashBoardPage() {
       },
       include: {
         comments: true,
-        author: {
+        user: {
           select: {
             name: true,
             email: true,
-            image_url: true,
-          },
+          }
         },
       },
     }),

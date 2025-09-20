@@ -7,7 +7,7 @@ import { DefaultHeader } from "./default-header";
 import RowActions from "./row-action";
 
 type ExtendedComment = Comment & {
-  author: {
+  user: {
     name: string;
     email: string;
     updatedAt: string;
@@ -39,13 +39,13 @@ export const columns: ColumnDef<ExtendedComment>[] = [
   },
   {
     header: (info) => <DefaultHeader info={info} name="Name" />,
-    accessorFn: (row) => row?.author?.name ?? "—",
+    accessorFn: (row) => row?.user?.name ?? "—",
     id: "name",
     cell: (info) => info.getValue(),
   },
   {
     header: (info) => <DefaultHeader info={info} name="Email" />,
-    accessorFn: (row) => row?.author?.email ?? "—",
+    accessorFn: (row) => row?.user?.email ?? "—",
     id: "email",
     cell: (info) => info.getValue(),
   },
@@ -58,7 +58,7 @@ export const columns: ColumnDef<ExtendedComment>[] = [
   {
     header: (info) => <DefaultHeader info={info} name="CreatedAt" />,
     accessorFn: (row) => {
-      return moment(row?.author?.updatedAt).format("L");
+      return moment(row?.user?.updatedAt).format("L");
     },
     id: "updatedAt",
     cell: (info) => info.getValue(),

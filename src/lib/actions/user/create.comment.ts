@@ -1,5 +1,5 @@
 "use server";
-import { auth } from "@clerk/nextjs/server";
+import { getServerSession } from "@/lib/get-session";
 import prisma from "../../prisma";
 import { commentPostSchema } from "@/validation/comment.schema";
 import { revalidatePath } from "next/cache";
@@ -24,8 +24,10 @@ export const createComments = async (
     };
   }
 
-  const { userId } = await auth();
-  if (!userId) {
+    const session = await getServerSession();
+
+    
+  if (!session.user.id) {
     return {
       errors: {
         formErrors: ["You have to login first"],
@@ -34,7 +36,7 @@ export const createComments = async (
   }
 
   const existingUser = await prisma.user.findUnique({
-    where: { clerkUserId: userId },
+    where: { id: session.user.id },
   });
 
   if (!existingUser) {
@@ -49,7 +51,7 @@ export const createComments = async (
     await prisma.comment.create({
       data: {
         content: result.data.content,
-        authorId: existingUser.id,
+        userId: existingUser.id,
         postId,
       },
     });

@@ -9,8 +9,10 @@ import moment from "moment";
 import { minRead } from "@/utils/helper";
 
 interface WorkPageProps {
-  posts?: PostType[] | undefined;
+  posts?: PostType[] | null;
 }
+
+
 const WorkPage = ({ posts }: WorkPageProps) => {
 
   return (

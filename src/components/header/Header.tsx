@@ -6,6 +6,8 @@ import ModalUserButton from "./partials/ModalUserButton";
 import DarkModeButton from "./partials/DarkModeButton";
 import Link from "next/link";
 
+
+
 const Header = () => {
   const [scrollDir, setScrollDir] = useState<"up" | "down">("up");
   const [isModalOpen, setIsModalOpen] = useState(false);

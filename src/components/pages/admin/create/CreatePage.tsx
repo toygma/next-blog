@@ -2,6 +2,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { quillModules } from "@/lib/quillModules";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
@@ -31,6 +32,7 @@ import Image from "next/image";
 const CreatePage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<CreatePostInput>({
     resolver: zodResolver(createPostSchema),
     mode: "onChange",
@@ -53,6 +55,7 @@ const CreatePage = () => {
       } else {
         toast.success("Created Post Successfully");
         form.reset();
+        router.push("/")
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }

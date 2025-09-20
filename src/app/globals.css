@@ -131,11 +131,6 @@
   }
 }
 
-/* clerk */
-.cl-avatarBox.cl-userButtonAvatarBox.cl-internal-1j7ahlv {
-  width: 40px;
-  height: 40px;
-}
 
 .tiptap h1 {
   font-size: 2.25rem; /* 36px */
@@ -236,4 +231,9 @@
 .tiptap p a{
   color: rgb(86, 86, 240);
   text-decoration: underline;
+}
+
+.cl-avatarBox {
+  width: 2.25rem;
+  height: 2.25rem;
 }

@@ -1,9 +1,9 @@
 "use server";
 import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 import prisma from "../../prisma";
-import { auth } from "@clerk/nextjs/server";
 import { createPostSchema } from "@/validation/create.schema";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "@/lib/get-session";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -47,8 +47,8 @@ export const updatePost = async (
       };
     }
 
-    const { userId } = await auth();
-    if (!userId) {
+    const session = await getServerSession();
+    if (!session.user.id) {
       return {
         errors: {
           formErrors: ["You need to log in"],
@@ -61,7 +61,7 @@ export const updatePost = async (
       include: { categories: true },
     });
 
-    if (!existingPost || existingPost.authorId !== userId) {
+    if (!existingPost || existingPost.userId !== session.user.id) {
       return {
         errors: {
           formErrors: ["Post not found or unauthorized."],

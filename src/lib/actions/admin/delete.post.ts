@@ -2,8 +2,8 @@
 
 import { v2 as cloudinary } from "cloudinary";
 import prisma from "../../prisma";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "@/lib/get-session";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,16 +18,16 @@ type DeletePostResponse = {
 
 export const deletePost = async (postId: string): Promise<DeletePostResponse> => {
   try {
-    const { userId } = await auth();
+    const session = await getServerSession();
 
-    if (!userId) {
+    if (!session.user.id) {
       return { error: "You must be logged in to delete a post." };
     }
 
     const post = await prisma.post.findUnique({
       where: { id: postId },
       select: {
-        authorId: true,
+        userId: true,
         featuredImage: true,
       },
     });
@@ -36,7 +36,7 @@ export const deletePost = async (postId: string): Promise<DeletePostResponse> =>
       return { error: "Post not found." };
     }
 
-    if (post.authorId !== userId) {
+    if (post.userId !== session.user.id) {
       return { error: "You do not have permission to delete this post." };
     }
 

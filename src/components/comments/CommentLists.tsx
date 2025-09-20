@@ -4,27 +4,27 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import moment from "moment";
 import { nameSplit } from "@/utils/helper";
 import { DeleteSvg, EditSvg } from "@/lib/svg";
-import { useAuth } from "@clerk/nextjs";
 import EditingComment from "./partials/EditingComment";
 import { toast } from "sonner";
 import { deleteComment } from "@/lib/actions/user/delete.comment";
 import { showFormErrors } from "@/utils/showErrors";
 import Modal from "../ui/modal";
+import { authClient } from "@/lib/auth-client";
 type CommentListProps = {
   comments: {
-    author: {
+    user: {
       name: string | null;
       email: string | null;
-      image_url: string | null;
-      clerkUserId?: string | null;
+      userId?: string | null;
     };
     id: string;
+    userId: string;
     createdAt: Date;
     content: string;
   }[];
 };
 const CommentList = ({ comments }: CommentListProps) => {
-  const { userId } = useAuth();
+ const { data: session } = authClient.useSession();
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,27 +43,28 @@ const CommentList = ({ comments }: CommentListProps) => {
     }
   };
 
+
   return (
     <div className="space-y-8 ">
       {comments.map((comment) => (
         <div key={comment.id} className="flex gap-4">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={comment.author.image_url as string} />
+            <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
             <AvatarFallback>
-              {comment.author.name?.charAt(0).toUpperCase() ?? "?"}
+              {comment.user.name?.charAt(0).toUpperCase() ?? "?"}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">
             <div className="mb-2 flex items-center justify-between">
               <div>
                 <span className="font-medium text-foreground">
-                  {nameSplit(comment?.author?.name as string)}
+                  {nameSplit(comment?.user?.name as string)}
                 </span>
                 <span className="text-sm text-muted-foreground ml-2">
                   {moment(comment?.createdAt).format("L")}
                 </span>
               </div>
-              {comment?.author?.clerkUserId === userId && (
+              {comment?.userId === session?.user?.id && (
                 <div className="flex items-center justify-center gap-2 px-2">
                   <span
                     onClick={() =>

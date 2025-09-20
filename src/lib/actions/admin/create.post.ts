@@ -1,9 +1,9 @@
 "use server";
 import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 import prisma from "../../prisma";
-import { auth } from "@clerk/nextjs/server";
 import { createPostSchema } from "@/validation/create.schema";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "@/lib/get-session";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -60,8 +60,8 @@ export const createPosts = async (
       };
     }
 
-    const { userId } = await auth();
-    if (!userId) {
+    const  session  = await getServerSession();
+    if (!session.user.id) {
       return {
         errors: {
           formErrors: ["You need to log in"],
@@ -70,7 +70,7 @@ export const createPosts = async (
     }
 
     const existingUser = await prisma.user.findUnique({
-      where: { clerkUserId: userId },
+      where: { id: session.user.id },
     });
 
     if (!existingUser) {
@@ -116,7 +116,7 @@ export const createPosts = async (
         },
         content: result.data.content,
         featuredImage: uploadResult.secure_url,
-        authorId: existingUser.clerkUserId,
+        userId: existingUser.id,
       },
     });
 

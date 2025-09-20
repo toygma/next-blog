@@ -1,22 +1,19 @@
 "use server";
 
+import { getServerSession } from "@/lib/get-session";
 import prisma from "@/lib/prisma";
-import { auth, clerkClient } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-
 
 export const deleteCommentAsAdmin = async (
   commentId: string
 ): Promise<{ success?: boolean; error?: any }> => {
-  const { userId } = await auth();
+  const session = await getServerSession();
 
-  if (!userId) {
+  if (!session?.user?.id) {
     return { error: "You must be logged in." };
   }
-  const ClerkClient = await clerkClient();
-  const user = await ClerkClient?.users?.getUser(userId);
-  const isAdmin = user.publicMetadata?.isAdmin === true;
 
+  const isAdmin = session.user.role === "admin";
   if (!isAdmin) return { error: "Unauthorized: Admins only." };
 
   try {

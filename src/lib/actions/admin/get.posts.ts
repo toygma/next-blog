@@ -24,7 +24,7 @@ export async function getAllPostsProjects(page: number, limit: number) {
           comments: true,
           featuredImage: true,
           postType: true,
-          authorId: true,
+          userId: true,
         },
       }),
       prisma.post.count({
@@ -72,7 +72,7 @@ export async function getAllPostsBlogs(page: number, limit: number) {
           comments: true,
           featuredImage: true,
           postType: true,
-          authorId: true,
+          userId: true,
         },
       }),
       prisma.post.count({

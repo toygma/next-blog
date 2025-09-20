@@ -2,8 +2,8 @@
 
 import { commentPostSchema } from "@/validation/comment.schema";
 import prisma from "../../prisma";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "@/lib/get-session";
 
 type EditCommentFormState = {
   success?: boolean;
@@ -19,7 +19,8 @@ export const editComment = async (
   content: string
 ): Promise<EditCommentFormState> => {
   const result = commentPostSchema.safeParse({ content });
-  const { userId } = await auth();
+     const session = await getServerSession();
+ 
 
   if (!result.success) {
     return {
@@ -38,7 +39,7 @@ export const editComment = async (
     };
   }
 
-  if (!userId) {
+  if (!session.user.id) {
     return {
       errors: {
         formErrors: ["You have to login first"],
@@ -47,7 +48,7 @@ export const editComment = async (
   }
 
   const existingUser = await prisma.user.findUnique({
-    where: { clerkUserId: userId },
+    where: { id: session.user.id },
   });
 
   if (!existingUser) {
@@ -70,7 +71,7 @@ export const editComment = async (
     };
   }
 
-  if (existingComment.authorId !== existingUser.id) {
+  if (existingComment.userId !== existingUser.id) {
     return {
       errors: {
         formErrors: ["You are not allowed to edit this comment."],

@@ -5,8 +5,8 @@ import { Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import React, { useState, useTransition, useEffect } from "react";
 import type { Like } from "@prisma/client";
 import { toggleLike } from "@/lib/actions/user/like.toggle";
-import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
 
 type LikeButtonProps = {
   postId: string;
@@ -16,7 +16,7 @@ type LikeButtonProps = {
 
 const LikeButton: React.FC<LikeButtonProps> = ({ postId, likes, isLiked }) => {
   const [isPending, startTransition] = useTransition();
-  const { user } = useUser();
+   const { data: session } = authClient.useSession();
   const [liked, setLiked] = useState(isLiked);
   const [likeCount, setLikeCount] = useState(likes.length);
 
@@ -26,7 +26,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ postId, likes, isLiked }) => {
   }, [isLiked, likes.length]);
 
   const handleLike = () => {
-    if (!user) {
+    if (!session?.user) {
       return toast.error("Please sign in");
     }
     startTransition(async () => {

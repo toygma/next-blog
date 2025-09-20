@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import Modal from "@/components/ui/modal";
 import { incrementPostViews } from "@/lib/actions/user/increment.views";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth-client";
 
 type DetailPageProps = {
   posts: {
@@ -33,10 +33,9 @@ type DetailPageProps = {
     categories: {
       name: string;
     }[];
-    author: {
+    user: {
       name: string | null;
       email: string | null;
-      image_url: string | null;
     };
   };
   likes: Like[];
@@ -54,7 +53,7 @@ const DetailPage = ({
 }: DetailPageProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const id = useParams()?.id as string;
-  const { user } = useUser();
+  const { data: session } = authClient.useSession();
   const [isPending, startTransition] = useTransition();
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
@@ -104,12 +103,12 @@ const DetailPage = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 text-muted-foreground">
             <Avatar className="h-10 w-10">
-              <AvatarImage src={posts?.author?.image_url as string} />
+              <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
               <AvatarFallback>{posts?.id}</AvatarFallback>
             </Avatar>
             <div>
               <p className="font-medium text-foreground">
-                {posts?.author?.name}
+                {posts?.user?.name}
               </p>
               <p className="text-sm">
                 {moment(posts?.createdAt).format("L")} ·{" "}
@@ -117,7 +116,7 @@ const DetailPage = ({
               </p>
             </div>
           </div>
-          {user?.publicMetadata?.isAdmin === true && (
+          {session?.user?.role === "admin" && (
             <div className="flex items-center gap-2 pr-4">
               <span onClick={() => router.push(`/admin/edit/${posts?.id}`)}>
                 <EditSvg />
@@ -178,7 +177,7 @@ const DetailPage = ({
                 <LogIn className="h-6 w-6 text-primary" />
                 <h2 className="text-xl font-semibold">Log in to comment</h2>
               </div>
-              <Link href="/sign-in">
+              <Link href="/login">
                 <Button
                   variant="default"
                   className="px-6 py-2 text-sm"

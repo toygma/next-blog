@@ -12,7 +12,7 @@ import {
   commentPostSchema,
 } from "@/validation/comment.schema";
 import { toast } from "sonner";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth-client";
 
 type CommentFormProps = {
   postId: string;
@@ -20,7 +20,7 @@ type CommentFormProps = {
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [isPending, startTransition] = useTransition();
-    const { user } = useUser();
+    const {data:session} = authClient.useSession();
     
 
 
@@ -56,9 +56,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="mb-8">
         <div className="flex gap-4">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={user?.imageUrl || ""} />
+            <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
             <AvatarFallback>
-              {user?.firstName?.charAt(0).toUpperCase() || "?"}
+              {session?.user?.name?.charAt(0).toUpperCase() || "?"}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">

@@ -1,34 +1,46 @@
 "use client";
-import React from "react";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-const ModalUserButton = () => {
-  const { user } = useUser();
+import { toast } from "sonner";
 
-  const isAdmin = user?.publicMetadata?.isAdmin === true;
+const ModalUserButton = () => {
+  const { data: session } = authClient.useSession();
+  console.log("🚀 ~ ModalUserButton ~ session:", session);
+
+  async function handleLogout() {
+    const { error } = await authClient.signOut();
+    if (error) {
+      toast.message("Failed to logout. Please try again.");
+    } else {
+      toast.message("Successfully logged out.");
+    }
+  }
 
   return (
     <div className="flex items-center gap-4 px-4">
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-      {isAdmin && (
+      {/* avatar signed in */}
+      {session?.user?.role === "admin" && (
         <Link href={"/admin/dashboard"}>
           <Button type="button" className="block w-full text-left px-3 py-2 ">
             Admin Panel
           </Button>
         </Link>
       )}
-      <SignedOut>
-        <SignInButton>
+      {session ? (
+       <>
+       <p>Hello, {session?.user?.name}</p>
+        <Button
+          onClick={handleLogout}
+          type="button"
+          variant="destructive"
+          className="text-sm h-9 px-4 rounded-md border-red-300 hover:bg-red-500"
+        >
+          Logout
+        </Button>
+       </>
+      ) : (
+        <Link href={"/login"}>
           <Button
             type="button"
             variant="outline"
@@ -36,18 +48,8 @@ const ModalUserButton = () => {
           >
             Sign in
           </Button>
-        </SignInButton>
-
-        <SignUpButton>
-          <Button
-            type="button"
-            variant="outline"
-            className="text-sm h-9 px-4 rounded-md border-gray-300 hover:bg-gray-50"
-          >
-            Sign up
-          </Button>
-        </SignUpButton>
-      </SignedOut>
+        </Link>
+      )}
     </div>
   );
 };

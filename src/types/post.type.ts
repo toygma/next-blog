@@ -6,7 +6,7 @@ type Category = {
 type Comment = {
   id: string;
   content: string;
-  authorId: string;
+  userId: string;
   createdAt: Date;
 };
 
@@ -27,19 +27,18 @@ export type PostType = {
   comments: Comment[];
   featuredImage: string;
   postType: "Blog" | "Project" | string;
-  authorId: string;
+  userId: string | null;
 };
 
 export type CommentType = {
-  author: {
+  user: {
     name: string | null;
     email: string;
-    image_url: string | null;
   };
   id: string;
   postId: string;
   createdAt: Date;
   content: string;
-  authorId: string;
+  userId: string;
   updatedAt: Date;
 };

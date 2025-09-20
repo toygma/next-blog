@@ -5,7 +5,6 @@ import { ThemeProvider } from "next-themes";
 import ThemeComp from "@/components/themes/ThemeComp";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
@@ -28,13 +27,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <ClerkProvider>
       <html lang="en">
         <body className={`${inter.variable} antialiased`}>
           <ThemeProvider
@@ -54,6 +53,5 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }
