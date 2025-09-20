@@ -17,9 +17,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signUpSchema, SignUpSchemaType } from "@/lib/zodSchema";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { signUpSchema, SignUpSchemaType } from "@/validation/auth.schema";
 
 const SignUpForm = () => {
   const [formPending, startFormTransition] = useTransition();
