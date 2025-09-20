@@ -1,4 +1,4 @@
-import { Comment } from "@prisma/client";
+import { Comment } from "@/lib/generated/prisma";
 
 export type ExtendedComment = Comment & {
   userId:string,

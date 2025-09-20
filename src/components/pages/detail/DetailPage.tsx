@@ -6,7 +6,6 @@ import moment from "moment";
 import { minRead } from "@/utils/helper";
 import DOMPurify from "dompurify";
 import LikeButton from "@/components/liked/LikeButton";
-import type { Like } from "@prisma/client";
 import { Card } from "@/components/ui/card";
 import { LogIn, MessageCircle } from "lucide-react";
 import CommentForm from "@/components/comments/CommentsForm";
@@ -22,6 +21,7 @@ import { useParams, useRouter } from "next/navigation";
 import Modal from "@/components/ui/modal";
 import { incrementPostViews } from "@/lib/actions/user/increment.views";
 import { authClient } from "@/lib/auth-client";
+import { Like } from "@/lib/generated/prisma";
 
 type DetailPageProps = {
   posts: {
