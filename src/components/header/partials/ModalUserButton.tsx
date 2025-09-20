@@ -6,7 +6,6 @@ import { toast } from "sonner";
 
 const ModalUserButton = () => {
   const { data: session } = authClient.useSession();
-  console.log("🚀 ~ ModalUserButton ~ session:", session);
 
   async function handleLogout() {
     const { error } = await authClient.signOut();
