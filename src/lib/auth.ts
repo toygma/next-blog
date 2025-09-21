@@ -11,12 +11,14 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    requireEmailVerification: true,
   },
   user: {
     additionalFields: {
       role: {
         type: "string",
         input: false,
+        required: false,
       },
     },
   },
@@ -29,15 +31,12 @@ export const auth = betterAuth({
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
-    async sendVerificationEmail({ user, url }) {
-      await sendEmail({
-        to: user.email!,
-        subject: "Verify your email",
-        html: `Click <a href="${url}">here</a> to verify your email.`,
-      });
+    sendVerificationEmail: async ({ url, user }) => {
+      await sendEmail(url, user);
     },
   },
 });
 
 export type Session = typeof auth.$Infer.Session;
-export type User = typeof auth.$Infer.Session.user;
+export type User = Session["user"];
+
