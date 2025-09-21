@@ -1,6 +1,6 @@
 import { getServerSession } from "@/lib/get-session";
 import type { Metadata } from "next";
-import { redirect, unauthorized } from "next/navigation";
+import { redirect } from "next/navigation";
 import { ResendVerificationButton } from "./_components/ResendVerificationButton";
 
 export const metadata: Metadata = {
@@ -11,9 +11,6 @@ export default async function VerifyEmailPage() {
   const session = await getServerSession();
   const user = session?.user;
 
-  if (!user) unauthorized();
-
-  if (user.emailVerified) redirect("/");
   
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center">

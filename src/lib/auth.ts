@@ -11,7 +11,6 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
   },
   user: {
     additionalFields: {
@@ -38,5 +37,4 @@ export const auth = betterAuth({
 });
 
 export type Session = typeof auth.$Infer.Session;
-export type User = Session["user"];
-
+export type User = typeof auth.$Infer.Session.user;
