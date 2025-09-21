@@ -2,6 +2,7 @@ import { getServerSession } from "@/lib/get-session";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { ResendVerificationButton } from "./_components/ResendVerificationButton";
+import { toast } from "sonner";
 
 export const metadata: Metadata = {
   title: "Verify Email",
@@ -11,6 +12,14 @@ export default async function VerifyEmailPage() {
   const session = await getServerSession();
   const user = session?.user;
 
+  if (user?.emailVerified) {
+    toast.success("Your email is already verified.");
+    return redirect("/")
+  };
+
+  if(!user){
+    return redirect("/")
+  }
   
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center">

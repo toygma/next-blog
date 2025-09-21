@@ -22,7 +22,7 @@ export function ResendVerificationButton({
 
     const { error } = await authClient.sendVerificationEmail({
       email,
-      callbackURL: "/email-verified",
+      callbackURL: "/",
     });
 
     setIsLoading(false);
