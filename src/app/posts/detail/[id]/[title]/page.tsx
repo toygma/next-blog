@@ -7,7 +7,7 @@ import { getServerSession } from "@/lib/get-session";
 import prisma from "@/lib/prisma";
 
 interface ArticleDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string; title: string }>; 
 }
 
 const getPosts = cache(async (postId: string) => {
@@ -21,8 +21,9 @@ const getPosts = cache(async (postId: string) => {
 });
 
 export async function generateMetadata({
-  params: { id },
+  params,
 }: ArticleDetailPageProps): Promise<Metadata> {
+  const { id } = await params;
   const posts = await getPosts(id);
 
   if (!posts) {
