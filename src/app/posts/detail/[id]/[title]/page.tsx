@@ -1,26 +1,56 @@
+"use server"
+import { Metadata } from "next";
+import React, { cache, Suspense } from "react";
 import Loading from "@/components/loading";
 import DetailPage from "@/components/pages/detail/DetailPage";
 import { getServerSession } from "@/lib/get-session";
 import prisma from "@/lib/prisma";
-import React, { Suspense } from "react";
 
 interface ArticleDetailPageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
-const Page = async ({ params }: ArticleDetailPageProps) => {
-  const { id } = await params;
-
-  const session = await getServerSession();
-  const userId = session?.user?.id;
-
-  const posts = await prisma.post.findUnique({
-    where: { id },
+const getPosts = cache(async (postId: string) => {
+  return await prisma.post.findUnique({
+    where: { id: postId },
     include: {
       user: { select: { name: true, email: true } },
       categories: { select: { name: true } },
     },
   });
+});
+
+export async function generateMetadata({
+  params: { id },
+}: ArticleDetailPageProps): Promise<Metadata> {
+  const posts = await getPosts(id);
+
+  if (!posts) {
+    return {
+      title: "Article Not Found",
+      description: "The requested article could not be found.",
+    };
+  }
+
+  return {
+    title: posts.title,
+    description: posts.content.slice(0, 150),
+    openGraph: {
+      images: [
+        {
+          url: posts.featuredImage || "",
+        },
+      ],
+    },
+  };
+}
+
+const Page = async ({ params }: ArticleDetailPageProps) => {
+  const { id } = await params;
+  const session = await getServerSession();
+  const userId = session?.user?.id;
+
+  const posts = await getPosts(id);
 
   if (!posts) return <h1>Article not found.</h1>;
 
