@@ -112,6 +112,9 @@ CREATE TABLE "public"."_PostCategories" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "user_name_key" ON "public"."user"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "user_email_key" ON "public"."user"("email");
 
 -- CreateIndex

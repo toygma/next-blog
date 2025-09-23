@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -43,9 +42,9 @@ const SignUpForm = () => {
         callbackURL: "/email-verified",
       });
       if (error) {
-        toast.error(error.message || "Failed to login. Please try again.");
+        toast.error(error?.message);
       }else{
-        toast.success("Account created! Please wait, you are being redirected.");
+        toast.success("Account created! Redirecting...");
         router.push("/email-verified")
       }
     });
