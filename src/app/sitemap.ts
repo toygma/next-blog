@@ -1,5 +1,8 @@
 import { MetadataRoute } from "next";
-import prisma from "@/lib/prisma"; 
+import prisma from "@/lib/prisma";
+import slugify from "slugify";
+
+export const dynamic = "force-dynamic"; // Ensure dynamic generation
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
@@ -29,20 +32,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const posts = await prisma.post.findMany({
-    select: {
-      id: true,
-      title: true, 
-      updatedAt: true,
-    },
-  });
+  try {
+    const posts = await prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        updatedAt: true,
+      },
+    });
 
-  const dynamicPages = posts.map((post) => ({
-    url: `https://toygma.com/detail/${post.id}/${post.title}`,
-    lastModified: post.updatedAt || new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
-  }));
 
-  return [...staticPages, ...dynamicPages];
+    const dynamicPages = posts.map((post) => ({
+      url: `https://toygma.com/detail/${post.id}/${slugify(post.title, { lower: true, strict: true })}`,
+      lastModified: post.updatedAt || new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
+
+    return [...staticPages, ...dynamicPages];
+  } catch (error) {
+    return staticPages; 
+  }
 }
