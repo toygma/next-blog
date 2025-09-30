@@ -14,6 +14,7 @@ cloudinary.config({
 type CreateArticleFormState = {
   errors: {
     title?: string[];
+    slug?:string[];
     postType?: string[];
     categories?: string[];
     featuredImage?: string[];
@@ -49,6 +50,7 @@ export const createPosts = async (
 
     const result = createPostSchema.safeParse({
       title: formData.get("title"),
+      slug:formData.get("slug"),
       categories: rawCategories ? JSON.parse(rawCategories as string) : [],
       content: formData.get("content"),
       postType: formData.get("postType"),
@@ -111,6 +113,7 @@ export const createPosts = async (
       data: {
         postType: result.data.postType,
         title: result.data.title,
+        slug:result.data.slug,
         categories: {
           connect: connectedCategories.map((cat) => ({ id: cat.id })),
         },

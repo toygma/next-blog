@@ -77,6 +77,7 @@ model Post {
   postType      String
   title         String
   content       String
+  slug          String
   featuredImage String
   user          User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String?

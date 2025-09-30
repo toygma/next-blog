@@ -28,6 +28,7 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { showFormErrors } from "@/utils/showErrors";
 import Image from "next/image";
+import { generateTitle } from "@/utils/helper";
 
 const CreatePage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -39,9 +40,11 @@ const CreatePage = () => {
   });
   const onSubmit = async (data: CreatePostInput) => {
     const formData = new FormData();
+    const slug = generateTitle(data.title);
     setLoading(true);
     formData.append("title", data.title);
     formData.append("content", data.content);
+    formData.append("slug", slug);
     formData.append("postType", data.postType);
     formData.append("categories", JSON.stringify(data.categories));
     if (data.featuredImage instanceof File) {
@@ -55,7 +58,7 @@ const CreatePage = () => {
       } else {
         toast.success("Created Post Successfully");
         form.reset();
-        router.push("/")
+        router.push("/");
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
@@ -91,6 +94,17 @@ const CreatePage = () => {
                   placeholder="Title"
                   error={form.formState.errors.title}
                   label="Post Title"
+                  type="text"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormInput
+                  control={form.control}
+                  name="slug"
+                  placeholder="Slug (ör: hello-world)"
+                  error={form.formState.errors.slug}
+                  label="Slug"
                   type="text"
                 />
               </div>
@@ -133,9 +147,11 @@ const CreatePage = () => {
                     </FormItem>
                   )}
                 />
-                 {form.watch("featuredImage") instanceof File && (
+                {form.watch("featuredImage") instanceof File && (
                   <Image
-                    src={URL.createObjectURL(form.watch("featuredImage" ) as any)}
+                    src={URL.createObjectURL(
+                      form.watch("featuredImage") as any
+                    )}
                     alt="featuredImage"
                     title="featuredImage"
                     width={400}
@@ -168,7 +184,6 @@ const CreatePage = () => {
                     </FormItem>
                   )}
                 />
-               
               </div>
 
               <div className="flex justify-end gap-4">

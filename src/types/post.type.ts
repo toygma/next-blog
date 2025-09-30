@@ -19,6 +19,7 @@ type Likes = {
 export type PostType = {
   id: string;
   title: string;
+  slug:string;
   content: string;
   categories: Category[];
   createdAt: Date;
