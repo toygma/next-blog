@@ -14,7 +14,6 @@ export const nameSplit=(name:string)=>{
 export const generateTitle = (title: string) => {
   return slugify(title, {
     lower: true, 
-    strict: true,
     trim: true,   
   });
 };
