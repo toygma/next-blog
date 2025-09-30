@@ -21,6 +21,7 @@ const Page = async ({ searchParams }: PageProps) => {
     postsPerPage
   );
 
+
   return (
     <Suspense fallback={<Loading fullScreen />}>
       <WorkPage posts={data} />

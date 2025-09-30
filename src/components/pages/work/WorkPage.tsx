@@ -12,9 +12,7 @@ interface WorkPageProps {
   posts?: PostType[] | null;
 }
 
-
 const WorkPage = ({ posts }: WorkPageProps) => {
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

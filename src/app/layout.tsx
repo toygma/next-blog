@@ -45,12 +45,12 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <ThemeComp>
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">{children}</main>
-              <Footer />
-            </div>
-            <Toaster richColors duration={3000} position="top-center" />
+              <div className="flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+              </div>
+              <Toaster richColors duration={3000} position="top-center" />
           </ThemeComp>
         </ThemeProvider>
       </body>

@@ -16,6 +16,7 @@ export async function getAllPostsProjects(page: number, limit: number) {
         select: {
           id: true,
           title: true,
+          slug:true,
           content: true,
           categories: true,
           createdAt: true,
@@ -64,6 +65,7 @@ export async function getAllPostsBlogs(page: number, limit: number) {
         select: {
           id: true,
           title: true,
+          slug:true,
           content: true,
           categories: true,
           createdAt: true,
