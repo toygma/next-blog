@@ -52,7 +52,7 @@ const EditingComment = ({ commentId, onSuccess }: EditingCommentProps) => {
           control={form.control}
           name="content"
           multiline
-          placeholder="Editing comment"
+          placeholder="Yorumunu düzenle"
           error={form.formState.errors.content}
         />
         <Button
@@ -61,7 +61,7 @@ const EditingComment = ({ commentId, onSuccess }: EditingCommentProps) => {
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg"
         >
-          Update
+          Güncelle
         </Button>
       </form>
     </Form>

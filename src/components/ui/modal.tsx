@@ -34,7 +34,7 @@ const Modal = ({
         </DialogHeader>
         <div className="flex justify-end gap-2 mt-4">
           <Button variant="outline" onClick={onCancel}>
-            Cancel
+            İptal
           </Button>
           <Button
             disabled={loading}
@@ -42,7 +42,7 @@ const Modal = ({
             variant="destructive"
             onClick={onConfirm}
           >
-            Yes, Delete
+            Evet, Sil.
           </Button>
         </div>
       </DialogContent>

@@ -103,7 +103,7 @@ const DetailPage = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 text-muted-foreground">
             <Avatar className="h-10 w-10">
-              <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
+             <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
               <AvatarFallback>{posts?.id}</AvatarFallback>
             </Avatar>
             <div>

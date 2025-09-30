@@ -64,13 +64,13 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
           <div className="flex-1">
             <FormInput
               control={form.control}
-              placeholder="Write Here"
+              placeholder="Yorumunu yaz"
               name="content"
               error={form.formState.errors.content}
             />
             <div className="mt-4 flex justify-end">
               <Button type="submit" loading={isPending} disabled={isPending}>
-                Send
+                Gönder
               </Button>
             </div>
           </div>
