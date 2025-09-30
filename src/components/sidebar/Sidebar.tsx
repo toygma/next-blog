@@ -29,7 +29,7 @@ const Sidebar = () => {
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
         <div className="px-8 pt-6 flex flex-col">
-          <h2 className="text-[10px] text-[#111827] dark:text-gray-200">SKILLS & TOOLS</h2>
+          <h2 className="text-[10px] text-[#111827] dark:text-gray-200">Beceriler & Araçlar</h2>
           <p className="flex flex-wrap gap-2 mt-4">
             {SkillData.map((skill) => (
               <span
@@ -42,7 +42,7 @@ const Sidebar = () => {
           </p>
         </div>
         <div className="px-8 pt-12 flex flex-col gap-2 pb-4">
-          <h2 className="text-[10px] text-[#111827] dark:text-gray-200">CONTACT</h2>
+          <h2 className="text-[10px] text-[#111827] dark:text-gray-200">İletişim</h2>
           <div className="flex items-center gap-2">
             <EmailSvg />
             <a href={"mailto:toygunbektasoglu@gmail.com"}  className="text-[14px] text-[#374151] hover:underline dark:text-gray-200">

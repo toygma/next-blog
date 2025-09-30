@@ -84,7 +84,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
               {/* Button */}
               <div className="mt-auto">
                 <Link
-                  href={`/posts/detail/${item.id}/${item.slug}`}
+                  href={`/posts/detay/${item.id}/${item.slug}`}
                   className="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-400 
             hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-300 group/button cursor-pointer"
                 >

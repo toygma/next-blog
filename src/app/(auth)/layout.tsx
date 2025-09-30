@@ -2,8 +2,8 @@ import "@/app/globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Registration procedures",
-  description: "Login and Register",
+  title: "Kayıt İşlemleri",
+  description: "Giriş ve Kayıt",
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

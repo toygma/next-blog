@@ -14,19 +14,19 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Toygma - Full Stack Developer Journey",
+    default: "Toygma - Full Stack Geliştirici Yolculuğu",
     template: "%s | Toygma",
   },
-  description: "Full Stack Developer Journey, Frontend, Backend, Full Stack",
+  description: "Full Stack Geliştirici Yolculuğu, Frontend, Backend, Full Stack",
   openGraph: {
-    title: "Toygma - Full Stack Developer Journey",
-    description: "Full Stack Developer Journey, Frontend, Backend, Full Stack",
+    title: "Toygma - Full Stack Geliştirici Yolculuğu",
+    description: "Full Stack Geliştirici Yolculuğu, Frontend, Backend, Full Stack",
     images: [
       {
         url: "https://www.toygma.com/opengraph-image.png",
       },
     ],
-    type: "website",
+    type: "website", 
   },
 };
 
@@ -36,7 +36,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="tr">
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider
           attribute="class"

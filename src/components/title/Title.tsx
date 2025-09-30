@@ -5,23 +5,25 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+// ********** NAVİGASYON VERİSİ ÇEVİRİSİ **********
 const data = [
   {
     id: 1,
-    title: "Projects",
+    title: "Projeler",
     href: "/",
   },
   {
     id: 2,
-    title: "Blog",
+    title: "Blog", 
     href: "/blog",
   },
   {
     id: 3,
-    title: "About",
-    href: "/about",
+    title: "Hakkımda",
+    href: "/hakkimda", 
   },
 ];
+// ************************************************
 
 const Title = () => {
   const pathname = usePathname();
@@ -31,6 +33,7 @@ const Title = () => {
     const current = data.find((item) => item.href === pathname);
     if (current) setActive(current.title);
   }, [pathname]);
+
   return (
     <nav className="flex flex-col gap-4 mt-16">
       <div className="md:text-start text-center">
@@ -40,7 +43,7 @@ const Title = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="font-bold md:text-5xl text-4xl "
         >
-          Full Stack Developer
+          Full Stack Geliştirici
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -48,9 +51,8 @@ const Title = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="italic"
         >
-          💭 &#39;I&apos;m a dreamer. I have to dream and reach for the stars,
-          and if I miss a star then I grab a handful of clouds.&#34; — Mike
-          Tyson
+          💭 "Ben bir hayalperestim. Hayal kurmak ve yıldızlara uzanmak zorundayım
+          ve bir yıldızı kaçırırsam, bir avuç bulut yakalarım." — Mike Tyson
         </motion.p>
       </div>
       <motion.ul

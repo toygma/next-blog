@@ -92,13 +92,13 @@ const WorkPage = ({ posts }: WorkPageProps) => {
             <div className="mt-auto">
               {/* Button */}
               <Link
-                href={`/posts/detail/${item.id}/${item.slug}`}
+                href={`/posts/detay/${item.id}/${item.slug}`}
                 className="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-400 
           hover:text-indigo-800 dark:hover:text-indigo-300 
           transition-colors duration-300 group/button cursor-pointer "
               >
                 <span className="relative overflow-hidden">
-                  View Details
+                  Detayı gör
                   <span
                     className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 dark:bg-indigo-400 
               transform -translate-x-full group-hover/button:translate-x-0 

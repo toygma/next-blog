@@ -35,7 +35,7 @@ const ButtonGetInTouch = ({ setIsModalOpen }: Props) => {
           strokeLinejoin="round"
         ></path>
       </svg>
-      Get In Touch
+      İletişime Geç
     </Button>
   );
 };

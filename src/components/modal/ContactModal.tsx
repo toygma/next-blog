@@ -32,17 +32,17 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
     mode: "onChange",
   });
 
-
-
   const onSubmit = async (data: ContactMessageInput) => {
     setLoading(true);
     try {
       const result = await mailSend(data);
       if (result.success) {
-        toast.success("Your message has been received. I will get back to you as soon as possible. If I don't, call the police.");
+        toast.success(
+          "Mesajınız alındı. Size en kısa sürede geri döneceğim. Dönmezsem, polisi arayın."
+        );
       }
       setLoading(false);
-      form.reset()
+      form.reset();
       onClose();
     } catch (error: any) {
       setLoading(false);
@@ -54,10 +54,10 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="min-h-[50vh] max-h-[90vh] lg:max-w-[40%]">
         <DialogHeader>
-          <DialogTitle>Get in Touch</DialogTitle>
+          <DialogTitle>İletişime Geçin</DialogTitle> 
           <DialogDescription>
-            Your message is important to me. Please fill out the form below, and
-            I will get back to you as soon as possible.
+            Mesajınız benim için önemli. Lütfen aşağıdaki formu doldurun, size en
+            kısa sürede geri dönüş yapacağım.
           </DialogDescription>
         </DialogHeader>
 
@@ -69,26 +69,26 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
               <FormInput
                 control={form.control}
                 name="name"
-                placeholder="Name"
+                placeholder="Adınız" 
                 error={form.formState.errors.name}
-                label="Name"
+                label="Adınız" 
                 className="col-span-3"
               />
               <FormInput
                 control={form.control}
                 name="email"
-                placeholder="Email"
+                placeholder="E-posta" 
                 error={form.formState.errors.email}
-                label="Email"
+                label="E-posta" 
                 className="col-span-3"
               />
               <FormInput
                 control={form.control}
                 name="message"
-                placeholder="Message"
+                placeholder="Mesajınız" 
                 multiline
                 error={form.formState.errors.message}
-                label="Message"
+                label="Mesajınız" 
                 className="col-span-3"
               />
             </div>
@@ -100,7 +100,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
                 type="submit"
                 className="cursor-pointer"
               >
-                Send Message
+                Mesajı Gönder 
               </Button>
             </DialogFooter>
           </form>

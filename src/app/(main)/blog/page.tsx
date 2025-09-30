@@ -10,7 +10,9 @@ const BlogPage = dynamic(() => import("@/components/pages/blog/BlogPage"), {
 });
 
 export const metadata: Metadata = {
-  title: "Dev-Journey Blogs",
+  title: "Teknoloji, Kodlama ve Kişisel Gelişim Blogu",
+  description:
+    "Next.js, TypeScript ve siber güvenlik odaklı en güncel full-stack geliştirme makalelerini keşfedin. Bilgilerinizi bir üst seviyeye taşımak için hemen okumaya başlayın!",
 };
 
 type PageProps = {

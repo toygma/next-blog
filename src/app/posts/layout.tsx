@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 
 
 export const metadata: Metadata = {
-  title: "Detail Page",
-  description: "Detail",
+  title: "Detay Sayfasi",
+  description: "Detay",
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

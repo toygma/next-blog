@@ -19,13 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: "https://toygma.com/work",
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
-    {
-      url: "https://toygma.com/about",
+      url: "https://toygma.com/hakkimda",
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
@@ -43,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 
     const dynamicPages = posts.map((post) => ({
-      url: `https://toygma.com/detail/${post.id}/${slugify(post.title, { lower: true, strict: true })}`,
+      url: `https://toygma.com/detay/${post.id}/${slugify(post.title, { lower: true, strict: true })}`,
       lastModified: post.updatedAt || new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.6,

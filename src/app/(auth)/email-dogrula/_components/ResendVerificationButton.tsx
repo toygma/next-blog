@@ -28,9 +28,9 @@ export function ResendVerificationButton({
     setIsLoading(false);
 
     if (error) {
-      setError(error.message || "Something went wrong");
+      setError(error.message || "Bir şeyler ters gitti."); 
     } else {
-      setSuccess("Verification email sent successfully");
+      setSuccess("Doğrulama e-postası başarıyla gönderildi");
     }
   }
 
@@ -52,7 +52,7 @@ export function ResendVerificationButton({
         className="w-full"
         loading={isLoading}
       >
-        Resend verification email
+        Doğrulama e-postasını tekrar gönder
       </Button>
     </div>
   );

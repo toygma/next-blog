@@ -1,5 +1,6 @@
 "use client";
 import { useTransition } from "react";
+import Link from "next/link";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -15,95 +16,86 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { Checkbox } from "@/components/ui/checkbox";
-import { signInSchema, SignInSchemaType } from "@/validation/auth.schema";
 import { useRouter } from "next/navigation";
-const LoginForm = () => {
+import { signUpSchema, SignUpSchemaType } from "@/validation/auth.schema";
+
+const SignUpForm = () => {
   const [formPending, startFormTransition] = useTransition();
   const router = useRouter();
-  const form = useForm<SignInSchemaType>({
-    resolver: zodResolver(signInSchema),
+  const form = useForm<SignUpSchemaType>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
-      rememberMe: false,
+      confirmPassword: "",
     },
   });
 
-  async function onSubmit({ email, password, rememberMe }: SignInSchemaType) {
+  async function onSubmit({ email, password, name }: SignUpSchemaType) {
     startFormTransition(async () => {
-      const { error } = await authClient.signIn.email({
+      const { error } = await authClient.signUp.email({
         email,
         password,
-        rememberMe,
+        name,
+        callbackURL: "/email-dogrula",
       });
       if (error) {
-        toast.error(error.message || "Failed to login. Please try again.");
-      }else{
-        toast.success("Logged in successfully!");
-        router.refresh();
-        router.push("/");
+        toast.error(error?.message);
+      } else {
+        // BAŞARI MESAJI ÇEVİRİSİ
+        toast.success("Hesap oluşturuldu! Yönlendiriliyorsunuz...");
+        router.push("/email-dogrula");
       }
     });
   }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center">
       <Card className="w-full max-w-sm mx-auto shadow-lg rounded-xl bg-white dark:bg-slate-900 border dark:border-slate-800">
         <CardHeader className="text-center space-y-2">
           <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-50">
-            Sign In
+            Kayıt Ol
           </CardTitle>
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Choose your preferred sign-in method
+            Tercih ettiğiniz kayıt yöntemini seçin
           </p>
         </CardHeader>
 
         <CardContent className="flex flex-col gap-4">
-          {/* Google Sign-In Button */}
-          {/* <Button
-               disabled={googlePending}
-               onClick={signInWithGoogle}
-               className="w-full flex items-center justify-center gap-2 font-semibold"
-               variant="default"
-             >
-               {googlePending ? (
-                 <>
-                   <Loader className="size-4 animate-spin" />
-                   <span>Loading...</span>
-                 </>
-               ) : (
-                 <>
-                   <FaGoogle className="size-5" />
-                   <span>Sign Up with Google</span>
-                 </>
-               )}
-             </Button> */}
-
-          {/* "Or" Divider */}
           <div className="relative flex items-center py-2">
             <div className="flex-grow border-t border-slate-200 dark:border-slate-700" />
             <span className="mx-4 flex-shrink text-xs uppercase text-slate-500 dark:text-slate-400">
-              Or continue with
+              Veya devam et
             </span>
             <div className="flex-grow border-t border-slate-200 dark:border-slate-700" />
           </div>
 
-          {/* Email Form */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Adınız Soyadınız</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Mehmet Yılmaz" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>E-posta</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="your@email.com"
+                        placeholder="senin@eposta.com"
                         {...field}
                       />
                     </FormControl>
@@ -116,11 +108,11 @@ const LoginForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Şifre</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Şifre"
                         {...field}
                       />
                     </FormControl>
@@ -130,16 +122,18 @@ const LoginForm = () => {
               />
               <FormField
                 control={form.control}
-                name="rememberMe"
+                name="confirmPassword"
                 render={({ field }) => (
-                  <FormItem className="flex items-center gap-2">
+                  <FormItem>
+                    <FormLabel>Şifreyi Onayla</FormLabel>
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                      <Input
+                        type="password"
+                        placeholder="Şifreyi tekrarla"
+                        {...field}
                       />
                     </FormControl>
-                    <FormLabel>Remember me</FormLabel>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -151,19 +145,22 @@ const LoginForm = () => {
                 {formPending ? (
                   <>
                     <Loader className="size-4 animate-spin" />
-                    <span>Loading...</span>
+                    <span>Hesap Oluşturuluyor...</span>
                   </>
                 ) : (
-                  <span>Login</span>
+                  <span>Hesap Oluştur</span>
                 )}
               </Button>
             </form>
           </Form>
           <div>
             <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-              Don&apos;t you have an account?
-              <Link href={"/signup"} className="underline text-blue-400 px-2 ">
-                Sign Up
+              Zaten bir hesabınız var mı?
+              <Link
+                href={"/giris-yap"}
+                className="underline text-blue-400 px-2 "
+              >
+                Giriş Yap
               </Link>
             </p>
           </div>
@@ -173,4 +170,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

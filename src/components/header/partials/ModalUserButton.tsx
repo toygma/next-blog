@@ -28,24 +28,24 @@ const ModalUserButton = () => {
       )}
       {session ? (
        <>
-       <p>Hello, {session?.user?.name}</p>
+       <p>Hoş geldin, {session?.user?.name}</p>
         <Button
           onClick={handleLogout}
           type="button"
           variant="destructive"
           className="text-sm h-9 px-4 rounded-md border-red-300 hover:bg-red-500"
         >
-          Logout
+          Çıkış Yap
         </Button>
        </>
       ) : (
-        <Link href={"/login"}>
+        <Link href={"/giris-yap"}>
           <Button
             type="button"
             variant="outline"
             className="text-sm h-9 px-4 rounded-md border-gray-300 hover:bg-gray-50"
           >
-            Sign in
+            Giriş Yap
           </Button>
         </Link>
       )}

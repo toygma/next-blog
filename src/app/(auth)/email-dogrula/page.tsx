@@ -5,7 +5,7 @@ import { ResendVerificationButton } from "./_components/ResendVerificationButton
 import { toast } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Verify Email",
+  title: "E-posta Doğrula",
 };
 
 export default async function VerifyEmailPage() {
@@ -13,14 +13,14 @@ export default async function VerifyEmailPage() {
   const user = session?.user;
 
   if (user?.emailVerified) {
-    toast.success("Your email is already verified.");
-    return redirect("/")
-  };
-
-  if(!user){
-    return redirect("/")
+    toast.success("E-postanız zaten doğrulanmış.");
+    return redirect("/");
   }
-  
+
+  if (!user) {
+    return redirect("/");
+  }
+
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center">
       <div
@@ -28,9 +28,9 @@ export default async function VerifyEmailPage() {
 text-center"
       >
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold ">Verify your email</h1>
+          <h1 className="text-2xl font-semibold ">E-postanızı doğrulayın</h1>
           <p className="text-muted-foreground ">
-            A verification email was sent to your inbox.
+            Gelen kutunuza bir doğrulama e-postası gönderildi.
           </p>
         </div>
         <ResendVerificationButton email={user.email} />
