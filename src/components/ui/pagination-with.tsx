@@ -198,14 +198,14 @@ function SelectRowsPerPage({
 }) {
   return (
     <div className='flex items-center gap-4'>
-      <span className='whitespace-nowrap text-sm'>Rows per page</span>
+      <span className='whitespace-nowrap text-sm'>Sayfa başına satır sayısı</span>
 
       <Select
         value={String(pageSize)}
         onValueChange={(value) => setPageSize(Number(value))}
       >
         <SelectTrigger>
-          <SelectValue placeholder='Select page size'>
+          <SelectValue placeholder='Sayfa Sayısını seçin'>
             {String(pageSize)}
           </SelectValue>
         </SelectTrigger>

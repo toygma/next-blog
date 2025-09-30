@@ -89,7 +89,7 @@ const BlogPage = ({ posts }: BlogsPageProps) => {
             hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-300 group/button cursor-pointer"
                 >
                   <span className="relative overflow-hidden">
-                    View Details
+                    Detayları Gör
                     <span
                       className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 dark:bg-indigo-400 
                 transform -translate-x-full group-hover/button:translate-x-0 

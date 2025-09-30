@@ -24,7 +24,7 @@ type CommentListProps = {
   }[];
 };
 const CommentList = ({ comments }: CommentListProps) => {
- const { data: session } = authClient.useSession();
+  const { data: session } = authClient.useSession();
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ const CommentList = ({ comments }: CommentListProps) => {
     setLoading(true);
     const result = await deleteComment(id);
     if (result.success) {
-      toast.success("Comment deleted successfully");
+      toast.success("Yorumun başarıyla silindi");
       setIsModalOpen(false);
       setLoading(false);
     } else {
@@ -43,13 +43,16 @@ const CommentList = ({ comments }: CommentListProps) => {
     }
   };
 
-
   return (
     <div className="space-y-8 ">
       {comments.map((comment) => (
         <div key={comment.id} className="flex gap-4">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
+            <AvatarImage
+              src={
+                "https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"
+              }
+            />
             <AvatarFallback>
               {comment.user.name?.charAt(0).toUpperCase() ?? "?"}
             </AvatarFallback>
@@ -83,8 +86,8 @@ const CommentList = ({ comments }: CommentListProps) => {
                     onCancel={() => {
                       setIsModalOpen(false);
                     }}
-                    title="Are you sure you want to delete this comment?"
-                    description="This action cannot be undone. This comment will be permanently deleted."
+                    title="Bu yorumu silmek istediğinizden emin misiniz?"
+                    description="Bu işlem geri alınamaz. Bu yorum kalıcı olarak silinecektir."
                     loading={loading}
                     onConfirm={() => {
                       handleDeleteConfirm(comment.id);

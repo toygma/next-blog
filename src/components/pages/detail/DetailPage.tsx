@@ -164,7 +164,7 @@ const DetailPage = ({
           <div className="flex items-center gap-2 mb-8">
             <MessageCircle className="h-6 w-6 text-primary" />
             <h2 className="text-2xl font-semibold text-foreground">
-              {comments?.length} Comments
+              {comments?.length} Yorumlar
             </h2>
           </div>
 
@@ -175,15 +175,15 @@ const DetailPage = ({
             <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-border p-6 shadow-sm bg-background/60">
               <div className="flex items-center gap-3 text-muted-foreground">
                 <LogIn className="h-6 w-6 text-primary" />
-                <h2 className="text-xl font-semibold">Log in to comment</h2>
+                <h2 className="text-xl font-semibold">Yorum yapmak için giriş yapınız</h2>
               </div>
-              <Link href="/login">
+              <Link href="/giris-yap">
                 <Button
                   variant="default"
                   className="px-6 py-2 text-sm"
                   type="button"
                 >
-                  Go to Login
+                  Giriş yap
                 </Button>
               </Link>
             </div>

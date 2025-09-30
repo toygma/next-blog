@@ -50,15 +50,11 @@ const CreatePage = () => {
     if (data.featuredImage instanceof File) {
       formData.append("featuredImage", data.featuredImage);
     }
-
     try {
       const result = await createPosts(formData);
       if (result.errors) {
         showFormErrors(result?.errors);
       } else {
-        toast.success("Created Post Successfully");
-        form.reset();
-        router.push("/");
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
@@ -66,7 +62,9 @@ const CreatePage = () => {
         form.setValue("postType", "");
       }
     } finally {
+      toast.success("Created Post Successfully");
       setLoading(false);
+      router.push("/");
     }
   };
   return (
