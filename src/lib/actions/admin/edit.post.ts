@@ -15,6 +15,7 @@ type UpdateArticleFormState = {
   errors: {
     title?: string[];
     postType?: string[];
+    slug?:string[];
     categories?: string[];
     featuredImage?: string[];
     content?: string[];
@@ -36,6 +37,7 @@ export const updatePost = async (
 
     const result = createPostSchema.safeParse({
       title: formData.get("title"),
+      slug: formData.get("slug"),
       categories: rawCategories ? JSON.parse(rawCategories as string) : [],
       content: formData.get("content"),
       postType: formData.get("postType"),
@@ -117,6 +119,7 @@ export const updatePost = async (
       where: { id: postId },
       data: {
         title: result.data.title,
+        slug: result.data.slug,
         postType: result.data.postType,
         content: result.data.content,
         featuredImage: imageUrl,

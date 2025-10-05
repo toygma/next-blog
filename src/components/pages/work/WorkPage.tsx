@@ -27,7 +27,7 @@ const WorkPage = ({ posts }: WorkPageProps) => {
   dark:from-gray-800 dark:to-gray-900
   rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700
   hover:border-transparent shadow-sm hover:shadow-xl
-  transition-all duration-500 hover:-translate-y-1.5"
+  transition-all duration-500 hover:-translate-y-1.5 pb-4"
         >
           {/* Glow effect */}
           <div

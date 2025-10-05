@@ -15,7 +15,5 @@ export const generateTitle = (title: string) => {
   return slugify(title, {
     lower: true,
     trim: true,
-    locale: 'tr',
-    remove: /[*+~.()'"!:@?]/g,
   });
 };

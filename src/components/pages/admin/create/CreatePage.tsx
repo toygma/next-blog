@@ -61,6 +61,8 @@ const CreatePage = () => {
         form.setValue("title", "");
         form.setValue("postType", "");
       }
+    } catch (error: any) {
+      toast.error(error.message);
     } finally {
       toast.success("Created Post Successfully");
       setLoading(false);

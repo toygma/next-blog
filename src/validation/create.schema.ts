@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 export const createPostSchema = z.object({
-  postType: z
-    .string()
-    .min(1, { message: "Yazı türü zorunludur." }),
+  postType: z.string().min(1, { message: "Yazı türü zorunludur." }),
   title: z
     .string()
     .min(3, { message: "Başlık en az 3 karakter olmalıdır." })
@@ -11,9 +9,6 @@ export const createPostSchema = z.object({
 
   slug: z
     .string()
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
-      message: "Slug yalnızca küçük harfler, rakamlar ve kısa çizgiler içerebilir.",
-    })
     .min(3, { message: "Slug en az 3 karakter olmalıdır." })
     .max(100, { message: "Slug en fazla 100 karakter olmalıdır." }),
 

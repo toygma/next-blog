@@ -29,6 +29,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { getPostById } from "@/lib/actions/admin/postById";
 import Image from "next/image";
 import { quillModules } from "@/lib/quillModules";
+import { generateTitle } from "@/utils/helper";
 
 const EditingPage = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ const EditingPage = () => {
         setPost(postData);
         form.reset({
           title: postData.title,
+          slug:postData.slug,
           postType: postData.postType,
           content: postData.content,
           categories: postData.categories.map((c: any) => ({
@@ -62,7 +64,10 @@ const EditingPage = () => {
 
   const onSubmit = async (data: CreatePostInput) => {
     const formData = new FormData();
+    const slug = generateTitle(data.slug);
+    
     formData.append("title", data.title);
+    formData.append("slug", slug);
     formData.append("content", data.content);
     formData.append("postType", data.postType);
     formData.append("categories", JSON.stringify(data.categories));
@@ -76,7 +81,7 @@ const EditingPage = () => {
       if (result.success) {
         toast.success("Post updated successfully");
         if (post) {
-          router.push(`/posts/detail/${post.id}/${post.title}`);
+          router.push(`/posts/detay/${post.id}/${generateTitle(post.slug)}`)
         }
       } else {
         showFormErrors(result.errors);
@@ -111,6 +116,17 @@ const EditingPage = () => {
                   placeholder="Title"
                   error={form.formState.errors.title}
                   label="Post Title"
+                  type="text"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormInput
+                  control={form.control}
+                  name="slug"
+                  placeholder="Slug (ör: hello-world)"
+                  error={form.formState.errors.slug}
+                  label="Slug"
                   type="text"
                 />
               </div>
