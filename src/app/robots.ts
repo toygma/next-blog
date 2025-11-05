@@ -5,28 +5,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: [
-          "/", 
-          "/blog",
-          "/hakkimda", 
-          "/detay/*", 
-        ],
+        allow: ["/"],
         disallow: [
-          "/api/*", 
-          "/admin/*", 
-          "/giris-yap", 
-          "/kayit-ol", 
-          "/_next/*", 
-          "*.css", 
-          "*.js", 
+          "/api/",
+          "/admin/",
+          "/giris-yap",
+          "/kayit-ol",
         ],
-      },
-      {
-        userAgent: "Googlebot",
-        allow: ["/"], 
       },
     ],
-    sitemap: "https://toygma.com/sitemap.xml", 
-    host: "https://toygma.com", 
+    sitemap: "https://toygma.com/sitemap.xml",
   };
 }
