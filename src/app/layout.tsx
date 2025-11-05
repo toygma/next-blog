@@ -14,13 +14,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Toygma - Full Stack Geliştirici Yolculuğu",
+    default: "Toygma - Full Stack Developer Yolculuğu",
     template: "%s | Toygma",
   },
-  description: "Full Stack Geliştirici Yolculuğu, Frontend, Backend, Full Stack",
+  description: "Full Stack Developer Yolculuğu, Frontend, Backend, Full Stack",
   openGraph: {
-    title: "Toygma - Full Stack Geliştirici Yolculuğu",
-    description: "Full Stack Geliştirici Yolculuğu, Frontend, Backend, Full Stack",
+    title: "Toygma - Full Stack Developer Yolculuğu",
+    description: "Full Stack Developer Yolculuğu, Frontend, Backend, Full Stack",
     images: [
       {
         url: "https://www.toygma.com/opengraph-image.png",

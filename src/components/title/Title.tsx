@@ -43,7 +43,7 @@ const Title = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="font-bold md:text-5xl text-4xl "
         >
-          Full Stack Geliştirici
+          Full Stack Developer
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}

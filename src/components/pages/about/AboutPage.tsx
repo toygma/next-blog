@@ -24,8 +24,8 @@ const AboutPage = () => {
             karşı korumanın ince zekâ gerektiren bilimi olan{" "}
             <strong>siber güvenlik</strong>. Ben, bir uygulamanın yalnızca ne
             kadar çalıştığıyla değil, aynı zamanda{" "}
-            <strong>ne kadar güvenli</strong> {" "}
-            olduğuyla ilgilenen, iki cephede birden savaşan bir geliştiriciyim.
+            <strong>ne kadar güvenli</strong> olduğuyla ilgilenen, iki cephede
+            birden savaşan bir Developeryim.
           </p>
           <br />
 
