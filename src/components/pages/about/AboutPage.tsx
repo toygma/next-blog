@@ -34,7 +34,7 @@ const AboutPage = () => {
             <strong>full-stack geliştirmenin</strong> en derin katmanlarına
             dalıyorum. Odak noktam:{" "}
             <strong>güvenliği merkeze alan modern mimariler</strong> inşa etmek.
-            <strong>Next.js 15</strong> ve en güncel teknolojilerle, sadece
+            <strong>Next.js 16</strong> ve en güncel teknolojilerle, sadece
             işlevsel değil, aynı zamanda
             <strong> hızlı, zarif ve geleceğe hazır</strong> web uygulamaları
             geliştiriyorum. Projelerimde, kullanıcı deneyimini önceliklendiren

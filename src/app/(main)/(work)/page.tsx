@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Full-Stack Web ve Siber Güvenlik Projeleri",
   description:
-    "En son Next.js 15, TypeScript, Node.JS ve temiz mimari pratikleriyle geliştirdiğim uygulamaları keşfedin. Siber güvenliği merkeze alan projelerimi inceleyin!",
+    "En son Next.js 16, TypeScript, Node.JS ve temiz mimari pratikleriyle geliştirdiğim uygulamaları keşfedin. Siber güvenliği merkeze alan projelerimi inceleyin!",
 };
 
 const WorkPage = dynamic(() => import("@/components/pages/work/WorkPage"), {

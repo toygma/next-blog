@@ -41,7 +41,7 @@ const PrivacyPage = () => {
 
       <h2 className="text-xl font-semibold mt-6 mb-2">7. Contact Us</h2>
       <p className="mb-4">
-        If you have any questions about this policy, please contact us at toygun@gmail.com.
+        If you have any questions about this policy, please contact us at toygma.software@gmail.com
       </p>
 
       <p className="mt-10 text-sm text-muted-foreground">

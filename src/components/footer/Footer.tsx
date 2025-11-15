@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="flex items-center gap-2 text-gray-600 flex-1">
             <a
               href="https://www.youtube.com/@toygma"
-              aria-label="Youtube Profile of Toygun Bektasoglu"
+              aria-label="Youtube Profile of Toygma"
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-110"
@@ -20,7 +20,7 @@ const Footer = () => {
             </a>
             <a
               href="https://www.linkedin.com/in/toygma/"
-              aria-label="Linkedin Profile of Toygun Bektasoglu"
+              aria-label="Linkedin Profile of Toygma"
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-110"
@@ -30,7 +30,7 @@ const Footer = () => {
             <a
               href="https://github.com/toygma"
               target="_blank"
-              aria-label="Github Profile of Toygun Bektasoglu"
+              aria-label="Github Profile of Toygma"
               rel="noopener noreferrer"
               className="cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-110"
             >
@@ -40,7 +40,7 @@ const Footer = () => {
 
           <div className="flex-1 text-center">
             <p className="text-[14px] text-gray-600">
-              © 2025 Toygun. All rights reserved.
+              © 2025 Toygma. All rights reserved.
             </p>
           </div>
           <div className="flex items-center gap-2 flex-1 justify-end">

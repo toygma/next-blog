@@ -23,7 +23,7 @@ const Sidebar = () => {
             />
           </div>
           <h1 className="text-[30px] text-[#111827] mt-4 font-bold mb-6 dark:text-gray-200">
-            Toygun
+            Toygma
           </h1>
           <ButtonGetInTouch setIsModalOpen={setIsModalOpen} />
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
@@ -45,8 +45,8 @@ const Sidebar = () => {
           <h2 className="text-[10px] text-[#111827] dark:text-gray-200">İletişim</h2>
           <div className="flex items-center gap-2">
             <EmailSvg />
-            <a href={"mailto:toygunbektasoglu@gmail.com"}  className="text-[14px] text-[#374151] hover:underline dark:text-gray-200">
-              toygunbektasoglu@gmail.com
+            <a href={"mailto:toygma.software@gmail.com"}  className="text-[14px] text-[#374151] hover:underline dark:text-gray-200">
+              toygma.software@gmail.com
             </a>
           </div>
           <div className="flex items-center gap-2">
