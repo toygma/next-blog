@@ -92,18 +92,6 @@ const AboutPage = () => {
               </a>
             </p>
             <p className="flex items-center gap-2 text-[16px] text-[#52525b] hover:bg-background cursor-pointer p-2 rounded-md group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500 dark:text-gray-200">
-              <LinkedinSvg />
-              <a
-                href={"https://www.linkedin.com/in/toygma/"}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="group-hover:text-transparent"
-                aria-label="Toygma'nın Linkedin Profili"
-              >
-                Linkedin'de Takip Et
-              </a>
-            </p>
-            <p className="flex items-center gap-2 text-[16px] text-[#52525b] hover:bg-background cursor-pointer p-2 rounded-md group hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition-all duration-500 dark:text-gray-200">
               <YoutubeSvg />
               <a
                 href={"https://www.youtube.com/@toygma"}
