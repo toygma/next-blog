@@ -6,6 +6,7 @@ import ThemeComp from "@/components/themes/ThemeComp";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import GoogleAnalytics from "./googleAnalytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -54,6 +55,7 @@ export default async function RootLayout({
             <Toaster richColors duration={3000} position="top-center" />
           </ThemeComp>
         </ThemeProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );
