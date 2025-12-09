@@ -1,6 +1,6 @@
 "use server";
 import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
-import prisma from "../../prisma";
+import {prisma} from "../../prisma";
 import { createPostSchema } from "@/validation/create.schema";
 import { revalidatePath } from "next/cache";
 import { getServerSession } from "@/lib/get-session";
@@ -50,7 +50,7 @@ export const updatePost = async (
     }
 
     const session = await getServerSession();
-    if (!session.user.id) {
+    if (!session?.user.id) {
       return {
         errors: {
           formErrors: ["You need to log in"],

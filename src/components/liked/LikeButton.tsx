@@ -6,7 +6,7 @@ import React, { useState, useTransition, useEffect } from "react";
 import { toggleLike } from "@/lib/actions/user/like.toggle";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import { Like } from "@/lib/generated/prisma";
+import { Like } from "@/lib/generated/prisma/client";
 
 type LikeButtonProps = {
   postId: string;

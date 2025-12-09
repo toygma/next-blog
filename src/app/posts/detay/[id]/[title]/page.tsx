@@ -4,7 +4,7 @@ import React, { cache, Suspense } from "react";
 import Loading from "@/components/loading";
 import DetailPage from "@/components/pages/detail/DetailPage";
 import { getServerSession } from "@/lib/get-session";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 
 interface ArticleDetailPageProps {
   params: Promise<{ id: string; title: string }>; 

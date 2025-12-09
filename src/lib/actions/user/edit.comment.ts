@@ -1,7 +1,7 @@
 "use server";
 
 import { commentPostSchema } from "@/validation/comment.schema";
-import prisma from "../../prisma";
+import {prisma} from "../../prisma";
 import { revalidatePath } from "next/cache";
 import { getServerSession } from "@/lib/get-session";
 
@@ -39,7 +39,7 @@ export const editComment = async (
     };
   }
 
-  if (!session.user.id) {
+  if (!session?.user.id) {
     return {
       errors: {
         formErrors: ["You have to login first"],

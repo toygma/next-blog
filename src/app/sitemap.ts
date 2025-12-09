@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 import slugify from "slugify";
 
 export const dynamic = "force-dynamic";

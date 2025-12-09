@@ -1,17 +1,18 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../src/lib/generated/prisma"
+
+  importFileExtension = "ts"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-
 model User {
   id            String    @id
   name          String    @unique
-  email         String    
+  email         String
   emailVerified Boolean   @default(false)
   image         String?
   role          String    @default("user")

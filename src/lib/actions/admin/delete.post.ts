@@ -1,7 +1,7 @@
 "use server";
 
 import { v2 as cloudinary } from "cloudinary";
-import prisma from "../../prisma";
+import {prisma} from "../../prisma";
 import { revalidatePath } from "next/cache";
 import { getServerSession } from "@/lib/get-session";
 
@@ -20,7 +20,7 @@ export const deletePost = async (postId: string): Promise<DeletePostResponse> =>
   try {
     const session = await getServerSession();
 
-    if (!session.user.id) {
+    if (!session?.user.id) {
       return { error: "You must be logged in to delete a post." };
     }
 

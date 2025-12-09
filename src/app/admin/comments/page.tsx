@@ -1,6 +1,6 @@
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 import type { ExtendedComment } from "@/types/comment.type";
 
 

@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 
 export const getPostById = async (postId: string) => {
   try {

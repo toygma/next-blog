@@ -1,18 +1,18 @@
 "use server";
 
 import { getServerSession } from "@/lib/get-session";
-import prisma from "../../prisma";
+import {prisma} from "../../prisma";
 
 export async function toggleLike(postId : string) {
     const session = await getServerSession();
 
-  if (!session.user.id) throw new Error("You must be logged in to like an article");
+  if (!session?.user.id) throw new Error("You must be logged in to like an article");
   
 
 
   // Ensure the user exists in the database
   const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
+    where: { id: session?.user?.id },
   });
 
   if (!user) {

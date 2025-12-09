@@ -39,7 +39,7 @@ type DetailPageProps = {
   likes: any[];
   isLiked: boolean;
   comments: any[];
-  userId: string;
+  userId: string | undefined;
 };
 
 const DetailPage = ({ posts, isLiked, likes, comments, userId }: DetailPageProps) => {

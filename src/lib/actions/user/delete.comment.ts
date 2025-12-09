@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "@/lib/get-session";
-import prisma from "../../prisma";
+import {prisma} from "../../prisma";
 import { revalidatePath } from "next/cache";
 
 type DeleteCommentFormState = {
@@ -26,7 +26,7 @@ export const deleteComment = async (
     };
   }
 
-  if (!session.user.id) {
+  if (!session?.user.id) {
     return {
       errors: {
         formErrors: ["You have to login first"],
