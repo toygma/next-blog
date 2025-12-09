@@ -29,15 +29,20 @@ import { Input } from "@/components/ui/input";
 import { showFormErrors } from "@/utils/showErrors";
 import Image from "next/image";
 import { generateTitle } from "@/utils/helper";
+import PreviewContent from "./partials/PreviewModal";
 
 const CreatePage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const form = useForm<CreatePostInput>({
     resolver: zodResolver(createPostSchema),
     mode: "onChange",
   });
+
+  const watchedValues = form.watch();
+
   const onSubmit = async (data: CreatePostInput) => {
     const formData = new FormData();
     const slug = generateTitle(data.title);
@@ -68,6 +73,10 @@ const CreatePage = () => {
       setLoading(false);
       router.push("/");
     }
+  };
+  const previewData = {
+    ...watchedValues,
+    featuredImage: watchedValues.featuredImage || null,
   };
   return (
     <div className="max-w-4xl mx-auto p-6 h-full">
@@ -193,11 +202,38 @@ const CreatePage = () => {
                 <Button disabled={loading} loading={loading} type="submit">
                   Create Post
                 </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setIsPreviewOpen(true)}
+                  disabled={loading || !form.formState.isValid}
+                >
+                  Önizle
+                </Button>
               </div>
             </form>
           </Form>
         </CardContent>
       </Card>
+      {isPreviewOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+          <div className="relative w-full h-full overflow-hidden bg-background">
+            <div className="sticky top-0 z-10 flex justify-between items-center p-4 bg-background/95 backdrop-blur border-b">
+              <h2 className="text-xl font-bold">Post Önizleme</h2>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setIsPreviewOpen(false)}
+              >
+                Kapat
+              </Button>
+            </div>
+            <div className="h-[calc(100vh-60px)] overflow-y-auto">
+              <PreviewContent data={previewData as any} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

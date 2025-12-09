@@ -30,10 +30,12 @@ import { getPostById } from "@/lib/actions/admin/postById";
 import Image from "next/image";
 import { quillModules } from "@/lib/quillModules";
 import { generateTitle } from "@/utils/helper";
+import PreviewContent from "../create/partials/PreviewModal";
 
 const EditingPage = () => {
   const { id } = useParams();
   const router = useRouter();
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState<any>(null);
@@ -41,6 +43,7 @@ const EditingPage = () => {
     resolver: zodResolver(createPostSchema),
     mode: "onChange",
   });
+  const watchedValues = form.watch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +52,7 @@ const EditingPage = () => {
         setPost(postData);
         form.reset({
           title: postData.title,
-          slug:postData.slug,
+          slug: postData.slug,
           postType: postData.postType,
           content: postData.content,
           categories: postData.categories.map((c: any) => ({
@@ -65,7 +68,7 @@ const EditingPage = () => {
   const onSubmit = async (data: CreatePostInput) => {
     const formData = new FormData();
     const slug = generateTitle(data.slug);
-    
+
     formData.append("title", data.title);
     formData.append("slug", slug);
     formData.append("content", data.content);
@@ -81,7 +84,7 @@ const EditingPage = () => {
       if (result.success) {
         toast.success("Post updated successfully");
         if (post) {
-          router.push(`/posts/detay/${post.id}/${generateTitle(post.slug)}`)
+          router.push(`/posts/detay/${post.id}/${generateTitle(post.slug)}`);
         }
       } else {
         showFormErrors(result.errors);
@@ -90,7 +93,10 @@ const EditingPage = () => {
       setLoading(false);
     }
   };
-
+  const previewData = {
+    ...watchedValues,
+    featuredImage: watchedValues.featuredImage || null,
+  };
   return (
     <div className="max-w-4xl mx-auto p-6">
       <Card>
@@ -213,11 +219,38 @@ const EditingPage = () => {
                 <Button disabled={loading} loading={loading} type="submit">
                   Editing Post
                 </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setIsPreviewOpen(true)}
+                  disabled={loading || !form.formState.isValid}
+                >
+                  Önizle
+                </Button>
               </div>
             </form>
           </Form>
         </CardContent>
       </Card>
+      {isPreviewOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+          <div className="relative w-full h-full overflow-hidden bg-background">
+            <div className="sticky top-0 z-10 flex justify-between items-center p-4 bg-background/95 backdrop-blur border-b">
+              <h2 className="text-xl font-bold">Post Önizleme</h2>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setIsPreviewOpen(false)}
+              >
+                Kapat
+              </Button>
+            </div>
+            <div className="h-[calc(100vh-60px)] overflow-y-auto">
+              <PreviewContent data={previewData as any} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

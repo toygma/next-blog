@@ -20,13 +20,14 @@ export const metadata: Metadata = {
   description: "Full Stack Developer Yolculuğu, Frontend, Backend, Full Stack",
   openGraph: {
     title: "Toygma - Full Stack Developer Yolculuğu",
-    description: "Full Stack Developer Yolculuğu, Frontend, Backend, Full Stack",
+    description:
+      "Full Stack Developer Yolculuğu, Frontend, Backend, Full Stack",
     images: [
       {
         url: "https://www.toygma.com/opengraph-image.png",
       },
     ],
-    type: "website", 
+    type: "website",
   },
 };
 
@@ -45,12 +46,12 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <ThemeComp>
-              <div className="flex flex-col min-h-screen">
-                <Header />
-                <main className="flex-grow">{children}</main>
-                <Footer />
-              </div>
-              <Toaster richColors duration={3000} position="top-center" />
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+            <Toaster richColors duration={3000} position="top-center" />
           </ThemeComp>
         </ThemeProvider>
       </body>

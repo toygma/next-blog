@@ -1,198 +1,215 @@
 "use client";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import moment from "moment";
-import { minRead } from "@/utils/helper";
-import DOMPurify from "dompurify";
-import LikeButton from "@/components/liked/LikeButton";
 import { Card } from "@/components/ui/card";
-import { LogIn, MessageCircle } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import Modal from "@/components/ui/modal";
+import LikeButton from "@/components/liked/LikeButton";
 import CommentForm from "@/components/comments/CommentsForm";
 import CommentList from "@/components/comments/CommentLists";
-import { Separator } from "@/components/ui/separator";
-import { CommentType } from "@/types/post.type";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { LogIn, MessageCircle, Calendar, Clock } from "lucide-react";
 import { DeleteSvg, EditSvg } from "@/lib/svg";
 import { deletePost } from "@/lib/actions/admin/delete.post";
-import { toast } from "sonner";
-import { useParams, useRouter } from "next/navigation";
-import Modal from "@/components/ui/modal";
 import { incrementPostViews } from "@/lib/actions/user/increment.views";
 import { authClient } from "@/lib/auth-client";
-import { Like } from "@/lib/generated/prisma";
+import { minRead } from "@/utils/helper";
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Link from "next/link";
+import moment from "moment";
+import "moment/locale/tr";
+
+moment.locale("tr");
 
 type DetailPageProps = {
   posts: {
     id: string;
     title: string;
-    content: string;
+    content: string; 
     featuredImage: string;
     createdAt: Date;
-    categories: {
-      name: string;
-    }[];
+    categories: { name: string }[];
     user: {
       name: string | null;
       email: string | null;
     };
   };
-  likes: Like[];
+  likes: any[];
   isLiked: boolean;
-  comments: CommentType[];
+  comments: any[];
   userId: string;
 };
 
-const DetailPage = ({
-  posts,
-  isLiked,
-  likes,
-  comments,
-  userId,
-}: DetailPageProps) => {
-  const contentRef = useRef<HTMLDivElement>(null);
+const DetailPage = ({ posts, isLiked, likes, comments, userId }: DetailPageProps) => {
   const id = useParams()?.id as string;
   const { data: session } = authClient.useSession();
   const [isPending, startTransition] = useTransition();
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
 
+  // Görüntülenme sayacı
   useEffect(() => {
-    const viewedKey = `viewedKey-${id}`;
-    const alreadyViewed = localStorage.getItem(viewedKey);
-    if (!alreadyViewed) {
+    const viewedKey = `viewedPost-${id}`;
+    if (!sessionStorage.getItem(viewedKey)) {
       incrementPostViews(id);
-      localStorage.setItem(viewedKey, "true");
+      sessionStorage.setItem(viewedKey, "true");
     }
   }, [id]);
-
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
 
   const handleConfirmDelete = () => {
     startTransition(async () => {
       const result = await deletePost(id);
       if (result.success) {
-        toast.success("Post deleted successfully");
-        setModalOpen(false);
+        toast.success("Post silindi");
         router.push("/");
       } else {
-        toast.error(result.error || "Something went wrong");
-        setModalOpen(false);
+        toast.error(result.error || "Bir hata oluştu");
       }
+      setModalOpen(false);
     });
   };
 
   return (
-    <main className="flex flex-col md:p-0 p-4">
-      <header className="mb-4">
-        <div className="flex flex-wrap gap-2 mb-4">
-          {posts?.categories?.map((item, index:any) => (
-            <>
-              <span
-                key={index}
-                className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
-              >
-                {item.name}
-              </span>
-            </>
-          ))}
+    <main className="min-h-screen ">
+      <article className="max-w-4xl mx-auto px-4 py-8 md:py-12">
+        {/* Öne Çıkan Görsel */}
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <Image
+            alt={posts.title}
+            src={posts.featuredImage}
+            width={1200}
+            height={600}
+            className="w-full h-auto max-h-[500px] object-cover"
+            priority
+          />
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 text-muted-foreground">
-            <Avatar className="h-10 w-10">
-             <AvatarImage src={"https://gravatar.com/avatar/60b78e9cc51aac82d2bd46515ea7c01d?s=400&d=robohash&r=x"} />
-              <AvatarFallback>{posts?.id}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="font-medium text-foreground">
-                {posts?.user?.name}
-              </p>
-              <p className="text-sm">
-                {moment(posts?.createdAt).format("L")} ·{" "}
-                {minRead(posts?.content)} min read
-              </p>
-            </div>
-          </div>
-          {session?.user?.role === "admin" && (
-            <div className="flex items-center gap-2 pr-4">
-              <span onClick={() => router.push(`/admin/edit/${posts?.id}`)}>
-                <EditSvg />
+
+        {/* Başlık ve Meta Bilgiler */}
+        <header className="mb-8 space-y-6">
+          {/* Kategoriler */}
+          <div className="flex flex-wrap gap-2">
+            {posts.categories.map((cat, i) => (
+              <span
+                key={i}
+                className="px-3 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary"
+              >
+                {cat.name}
               </span>
-              <div>
-                <span onClick={handleModalOpen}>
-                  <DeleteSvg />
-                </span>
-                <Modal
-                  isOpen={modalOpen}
-                  onCancel={() => setModalOpen(false)}
-                  onConfirm={handleConfirmDelete}
-                  loading={isPending}
-                  title="Delete Post"
-                  description="Are you sure you want to delete this post? This action cannot be undone."
+            ))}
+          </div>
+
+          {/* Başlık */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+            {posts.title}
+          </h1>
+
+          {/* Yazar ve Tarih Bilgileri */}
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-12 w-12">
+                <AvatarImage
+                  src={`https://api.dicebear.com/7.x/initials/svg?seed=${posts.user.name}`}
+                  alt={posts.user.name || "User"}
                 />
+                <AvatarFallback>{posts.user.name?.charAt(0) || "U"}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold">{posts.user.name}</p>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    {moment(posts.createdAt).format("LL")}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    {minRead(posts.content)} dk
+                  </span>
+                </div>
               </div>
             </div>
-          )}
-        </div>
-      </header>
-      <div className="w-full">
-        <Image
-          alt={posts?.title}
-          src={posts?.featuredImage}
-          width={400}
-          height={400}
-          className="p-3 max-h-[600px] w-full object-cover"
-        />
-      </div>
-      <div className="">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4 uppercase text-center">
-          {posts?.title}
-        </h1>
+
+            {/* Admin Butonları */}
+            {session?.user?.role === "admin" && (
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.push(`/admin/edit/${posts.id}`)}
+                >
+                  <EditSvg />
+                  Düzenle
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setModalOpen(true)}
+                  className="hover:bg-destructive/10 hover:text-destructive"
+                >
+                  <DeleteSvg />
+                  Sil
+                </Button>
+              </div>
+            )}
+          </div>
+        </header>
+
+        <Separator className="my-8" />
+
+        {/* İçerik - React-Quill HTML */}
         <div
-          ref={contentRef}
-          className="prose prose-lg max-w-none dark:prose-invert tiptap"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(posts?.content),
-          }}
+          className="prose prose-lg dark:prose-invert max-w-none mb-8"
+          dangerouslySetInnerHTML={{ __html: posts.content }}
         />
+
+        <Separator className="my-8" />
+
+        {/* Beğeni Butonu */}
         <LikeButton postId={posts.id} likes={likes} isLiked={isLiked} />
-        {/* Comments Section */}
-        <Card className="p-6 mb-6">
-          <div className="flex items-center gap-2 mb-8">
+
+        {/* Yorumlar Bölümü */}
+        <Card className="mt-10 p-6 md:p-8">
+          <div className="flex items-center gap-3 mb-6">
             <MessageCircle className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-semibold text-foreground">
-              {comments?.length} Yorumlar
+            <h2 className="text-2xl font-bold">
+              {comments.length} Yorum
             </h2>
           </div>
 
-          {/* Comment Form */}
           {userId ? (
-            <CommentForm postId={posts?.id} />
+            <div className="mb-6">
+              <CommentForm postId={posts.id} />
+            </div>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-border p-6 shadow-sm bg-background/60">
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <LogIn className="h-6 w-6 text-primary" />
-                <h2 className="text-xl font-semibold">Yorum yapmak için giriş yapınız</h2>
+            <div className="flex flex-col items-center gap-4 p-8 mb-6 rounded-xl border-2 border-dashed bg-muted/20">
+              <LogIn className="h-8 w-8 text-primary" />
+              <div className="text-center">
+                <h3 className="text-lg font-semibold">Yorum yapmak için giriş yapın</h3>
+                <p className="text-sm text-muted-foreground">
+                  Düşüncelerinizi paylaşmak için hesabınıza giriş yapın
+                </p>
               </div>
               <Link href="/giris-yap">
-                <Button
-                  variant="default"
-                  className="px-6 py-2 text-sm"
-                  type="button"
-                >
-                  Giriş yap
-                </Button>
+                <Button>Giriş Yap</Button>
               </Link>
             </div>
           )}
-          <Separator />
-          {/* Comments List */}
+
+          <Separator className="mb-6" />
           <CommentList comments={comments} />
         </Card>
-      </div>
+      </article>
+
+      {/* Silme Onay Modal */}
+      <Modal
+        isOpen={modalOpen}
+        onCancel={() => setModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        loading={isPending}
+        title="Post Sil"
+        description="Bu postu silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
+      />
     </main>
   );
 };

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "highlight.js/styles/github-dark.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -131,109 +132,143 @@
   }
 }
 
+/* React-Quill (HTML) içeriği için özelleştirilmiş stiller */
 
-.tiptap h1 {
-  font-size: 2.25rem; /* 36px */
-  font-weight: bold;
-  margin-top: 1.5em;
-  margin-bottom: 0.8em;
-}
-
-.tiptap h2 {
-  font-size: 1.875rem; /* 30px */
-  font-weight: bold;
-  margin-top: 1.5em;
-  margin-bottom: 0.8em;
+/* Root container */
+.prose {
+  line-height: 1.75;
+  color: #1f2937; /* slate-800 */
 }
 
-.tiptap h3 {
-  font-size: 1.5rem; /* 24px */
-  font-weight: bold;
-  margin-top: 1.5em;
-  margin-bottom: 0.8em;
+.dark .prose {
+  color: #e5e7eb; /* slate-200 */
 }
 
-.tiptap h4 {
-  font-size: 1.25rem; /* 20px */
-  font-weight: bold;
-  margin-top: 1.5em;
-  margin-bottom: 0.8em;
+/* Başlıklar */
+.prose h1 {
+  font-size: 2.25rem !important; /* 36px */
+  font-weight: 700 !important;
+  margin-top: 1.8rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.25 !important;
 }
 
-
-.tiptap .ql-align-center {
-  color: #555;
-  border-left: 4px solid #ccc;
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-  background-color: #f9f9f9;
-}
-.tiptap ol,
-.tiptap ul {
-  margin-left: 2em;
-  margin-bottom: 1em;
+.prose h2 {
+  font-size: 1.875rem !important; /* 30px */
+  font-weight: 700 !important;
+  margin-top: 1.6rem !important;
+  margin-bottom: 0.9rem !important;
+  line-height: 1.3 !important;
 }
 
-.tiptap ol,
-.tiptap li {
-  list-style: disc;
-}
-.tiptap p > strong {
-  margin-bottom: 1em !important;
-}
-.ql-code-block {
-  margin: 0;
-  padding: 0.75em 1em;
-  background-color: #1e1e1e;
-  color: #dcdcdc;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  overflow-x: auto;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  border-left: 4px solid #4ecdc4;
-  white-space: pre-wrap;
+.prose h3 {
+  font-size: 1.5rem !important; /* 24px */
+  font-weight: 600 !important;
+  margin-top: 1.3rem !important;
+  margin-bottom: 0.75rem !important;
+  line-height: 1.35 !important;
 }
 
-
-.ql-editor pre.ql-code-block + pre.ql-code-block {
-  margin-top: 0;
+/* Paragraflar */
+.prose p {
+  margin: 0.75rem 0 !important;
+  font-size: 1.1rem !important;
 }
 
-.ql-editor pre.ql-code-block {
-  margin: 0; 
+/* Kalın yazılar */
+.prose strong {
+  font-weight: 700 !important;
 }
 
-.ql-container {
-  height: 300px !important;
-  padding: 10px !important;
+/* İtalik */
+.prose em {
+  font-style: italic !important;
 }
 
-.ql-snow .ql-editor blockquote, .tiptap blockquote {
-  color: #555;
-  border-left: 4px solid #ccc;
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-  background-color: #f9f9f9;
+/* Listeler */
+/* UL listeleri — noktalı (bullet) görünüm */
+.prose ul {
+  list-style-type: disc !important;
+  list-style-position: inside !important;
+  padding-left: 1rem !important;
+  margin: 1rem 0 !important;
 }
 
-.tiptap ol {
-  list-style-type: decimal !important; 
-  padding-left: 1.5rem !important;
+/* OL listeleri — düzgün numaralı görünüm */
+.prose ol {
+  list-style-type: decimal !important;
+  list-style-position: inside;
+  padding-left: 1rem !important;
+  margin: 1rem 0 !important;
 }
 
-.tiptap li[data-list="ordered"] {
-  list-style-type: decimal;
+/* Liste elemanları */
+.prose li {
+  margin: 0.4rem 0 !important;
 }
 
-.tiptap li[data-list="bullet"] {
-  list-style-type: disc;
-}
-.tiptap p a{
-  color: rgb(86, 86, 240);
-  text-decoration: underline;
+/* Blockquote */
+.prose blockquote {
+  border-left: 4px solid #3b82f6 !important; /* blue-500 */
+  padding-left: 1rem !important;
+  margin: 1.2rem 0 !important;
+  color: #374151 !important; /* slate-700 */
+  font-style: italic !important;
+  background-color: #d1d5db !important;
 }
 
-.cl-avatarBox {
-  width: 2.25rem;
-  height: 2.25rem;
+.dark .prose blockquote {
+  border-color: #60a5fa !important;
+  color: #d1d5db !important;
+}
+
+/* Linkler */
+.prose a {
+  color: #2563eb !important; /* blue-600 */
+  font-weight: 500 !important;
+  text-decoration: underline !important;
+}
+
+.prose a:hover {
+  opacity: 0.8 !important;
+}
+
+/* Görseller */
+.prose img {
+  border-radius: 12px !important;
+  margin: 1rem 0 !important;
+  max-width: 100% !important;
+}
+
+/* Kod blokları */
+.prose pre {
+  background: #111827 !important; /* slate-900 */
+  color: #f3f4f6 !important; /* slate-100 */
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  overflow-x: auto !important;
+  font-size: 0.9rem !important;
+}
+
+.dark .prose pre {
+  background: #0f172a !important; /* dark slate */
+}
+
+/* Inline code */
+.prose code {
+  background: #f1f5f9 !important; /* slate-100 */
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 6px !important;
+  font-size: 0.95rem !important;
+}
+
+.dark .prose code {
+  background: #1e293b !important; /* slate-800 */
+}
+
+/* Headline emojis */
+.prose h1 span,
+.prose h2 span,
+.prose h3 span {
+  margin-right: 0.4rem !important;
 }
